@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fbf8f3;--ink:#1f2a37;--mute:#647184;--line:#e6dfd3;--teal:#0f766e;--amber:#b45309;--red:#c2410c;--green:#15803d;--dmv:#2563eb;--pt:#0f766e;--dt:#7c3aed}
+:root{--bg:#fbf8f3;--ink:#1f2a37;--mute:#647184;--line:#e6dfd3;--teal:#0f766e;--amber:#b45309;--green:#15803d;--dmv:#2563eb;--pt:#0f766e;--dt:#7c3aed}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;overflow:hidden}
 body{background:radial-gradient(900px 500px at 90% 0%,#e6f4f1,transparent 60%),radial-gradient(800px 500px at 0% 100%,#fdf3e2,transparent 60%),var(--bg);
@@ -44,7 +44,7 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .bub{opacity:0;transition:opacity .35s,transform .35s;transform-box:fill-box;transform-origin:center bottom;transform:scale(.8)}
 .bub.show{opacity:1;transform:none}
 .bub rect{fill:var(--ink)}.bub text{fill:#fff;font:600 15px Inter,sans-serif;text-anchor:middle}
-.bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}.bub.red rect{fill:var(--red)}
+.bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}
 .hid rect{fill:#eef0f3;stroke:#b8bec7;stroke-width:2;stroke-dasharray:6 6}.hid text{fill:#647184}
 .fade{transition:opacity .6s}.fade.off{opacity:0}
 .ring{fill:none;stroke-width:3;opacity:0}
@@ -104,14 +104,14 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
   <section class="scene" data-flow="before">
     <div class="k">2 · Why it happened</div>
     <h1>Why it happened</h1>
-    <p class="line">The voice AI filled in Property Tax, and Detect caller’s topic was skipped.</p>
+    <p class="line">The caller named no topic, but CogBot filled in Property Tax. The Router didn’t check it.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="after" id="s3">
     <div class="k">3 · The fix</div>
     <h1>The fix</h1>
-    <p class="line">Detect caller’s topic now checks every transfer. No topic found → DMV.</p>
+    <p class="line">The Router now checks the caller’s words on every request.</p>
     <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
     <div class="stage"></div>
   </section>
@@ -133,18 +133,18 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
     <h1>Where every call goes</h1>
     <p class="line" id="qcap">Before the fix · Oct 13–14 · 740 transfers</p>
     <div class="stage"><svg viewBox="0 0 1000 420" id="qmap">
-      <g class="nd"><rect x="20" y="170" width="140" height="64" rx="16"/><text x="90" y="208">Caller</text></g>
-      <g class="nd"><rect x="250" y="170" width="150" height="64" rx="16"/><text x="325" y="208">CogBot</text></g>
-      <g class="nd"><rect x="245" y="320" width="160" height="56" rx="16" style="fill:#eef0f4"/><text x="325" y="354" style="font-size:15px">Closed / holiday</text></g>
-      <path class="track" d="M160 202H250"/><path class="track" d="M325 234V320"/>
-      <path class="track" id="tq0" d="M400 202C520 202 520 70 640 70"/>
-      <path class="track" id="tq1" d="M400 202H640"/>
-      <path class="track" id="tq2" d="M400 202C520 202 520 334 640 334"/>
-      <path class="track" id="tqc" d="M405 348C520 348 560 110 640 82"/>
+      <g class="nd"><rect x="10" y="170" width="120" height="64" rx="32"/><text x="70" y="208">Caller</text></g>
+      <g class="nd"><rect x="180" y="170" width="130" height="64" rx="16"/><text x="245" y="208">CogBot</text></g>
+      <g class="nd"><rect x="360" y="170" width="140" height="64" rx="16"/><text x="430" y="208">Router</text></g>
+      <path class="track" d="M130 202H180"/><path class="track" d="M310 202H360"/>
+      <path class="track" id="tq0" d="M500 202C570 202 570 70 640 70"/>
+      <path class="track" id="tq1" d="M500 202H640"/>
+      <path class="track" id="tq2" d="M500 202C570 202 570 334 640 334"/>
+      <path class="track" id="tqc" d="M500 202C570 202 570 70 640 70" style="display:none"/>
       <g class="nd q" id="q0"><rect x="640" y="36" width="340" height="68" rx="16"/><text x="810" y="64">DMV / Driver License</text><text class="qs" x="810" y="88"></text></g>
       <g class="nd q" id="q1"><rect x="640" y="168" width="340" height="68" rx="16"/><text x="810" y="196">Property Tax</text><text class="qs" x="810" y="220"></text></g>
       <g class="nd q" id="q2"><rect x="640" y="300" width="340" height="68" rx="16"/><text x="810" y="328">Delinquent Tax</text><text class="qs" x="810" y="352"></text></g>
-      <text id="qclosed" x="325" y="402" style="font:600 14px Inter,sans-serif;text-anchor:middle;fill:#647184"></text><g id="qdots"></g>
+      <text id="qclosed" x="430" y="262" style="font:600 14px Inter,sans-serif;text-anchor:middle;fill:#647184"></text><g id="qdots"></g>
     </svg></div>
     <div class="toggle" id="qtog"><button data-m="before" class="on">Before</button><button data-m="after">After</button></div>
   </section>
@@ -170,29 +170,27 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 <script>
 const NS='http://www.w3.org/2000/svg';
 const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
- <path class="track" d="M130 200H190"/><path class="track" d="M320 200H380"/><path class="track" d="M540 200H600"/>
- <path class="track" d="M730 200C775 200 775 75 820 75"/><path class="track" d="M730 200H820"/><path class="track" d="M730 200C775 200 775 325 820 325"/>
- <path class="ghost" data-r="ghost" d="M730 200C775 200 775 75 820 75"/>
+ <path class="track" d="M130 200H210"/><path class="track" d="M350 200H450"/>
+ <path class="track" d="M600 200C710 200 710 75 820 75"/><path class="track" d="M600 200H820"/><path class="track" d="M600 200C710 200 710 325 820 325"/>
+ <path class="ghost" data-r="ghost" d="M600 200C710 200 710 75 820 75"/>
  <path class="trail" data-r="trail" d=""/>
  <g class="nd" data-r="caller"><rect x="20" y="165" width="110" height="70" rx="35"/><text x="75" y="206">Caller</text></g>
- <g class="nd" data-r="cog"><rect x="190" y="165" width="130" height="70" rx="18"/><text x="255" y="206">CogBot</text></g>
- <g class="nd hid fade off" data-r="hid"><rect x="370" y="160" width="370" height="80" rx="18"/><text x="555" y="196" style="font-size:22px">?</text><text x="555" y="222" style="font-size:14px">inside the CogBot</text></g>
- <g class="nd fade" data-r="xf"><rect x="380" y="160" width="160" height="80" rx="18"/><text x="460" y="193" style="font-size:14px;fill:#647184">Transfer request</text><text x="460" y="216" style="font-size:15px">Dept: Property Tax</text></g>
- <g class="nd check fade" data-r="chk"><rect x="600" y="160" width="130" height="80" rx="18"/><text x="665" y="194" style="font-size:14px">Detect</text><text x="665" y="214" style="font-size:14px">caller’s topic</text><line data-r="strike" x1="612" y1="200" x2="718" y2="200" stroke="#647184" stroke-width="2.5" opacity="0"/></g>
+ <g class="nd" data-r="cog"><rect x="210" y="165" width="140" height="70" rx="18"/><text x="280" y="206">CogBot</text></g>
+ <g class="nd" data-r="rt"><rect x="450" y="165" width="150" height="70" rx="18"/><text x="525" y="206">Router</text></g>
  <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
  <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
  <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
  <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px">“Speak to someone.”</text></g>
  <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px">No topic mentioned</text></g>
- <g class="bub tag" data-r="b2"><rect x="190" y="118" width="130" height="30" rx="15"/><text x="255" y="138" style="font-size:13px">Topic: unknown</text></g>
- <g class="bub amber" data-r="b6"><rect x="360" y="252" width="200" height="50" rx="16"/><text x="460" y="273" style="font-size:13px">Filled in by the voice AI,</text><text x="460" y="291" style="font-size:13px">not from the caller</text></g>
- <g class="bub" data-r="b3"><rect x="570" y="252" width="190" height="40" rx="20"/><text x="665" y="278" style="font-size:13px" data-r="b3t"></text></g>
+ <g class="bub tag" data-r="b2"><rect x="215" y="250" width="130" height="30" rx="15"/><text x="280" y="270" style="font-size:13px">Topic: unknown</text></g>
+ <g class="bub amber" data-r="b6"><rect x="270" y="132" width="260" height="46" rx="16"/><text x="400" y="151" style="font-size:13px">CogBot filled in: Property Tax</text><text x="400" y="169" style="font-size:11px">(caller named no topic)</text></g>
+ <g class="bub" data-r="b3"><rect x="420" y="250" width="210" height="50" rx="16"/><text x="525" y="271" style="font-size:13px" data-r="b3t"></text><text x="525" y="289" style="font-size:12px" data-r="b3u"></text></g>
  <g class="bub amber" data-r="b4"><rect x="835" y="236" width="145" height="30" rx="15"/><text x="907" y="256" style="font-size:13px">Wrong queue</text></g>
  <g class="bub blue" data-r="b5"><rect x="835" y="8" width="145" height="30" rx="15"/><text x="907" y="28" style="font-size:13px">Correct queue</text></g>
  <circle class="ring" data-r="ring" r="10"/>
  <circle data-r="dot" r="11" cx="130" cy="200" fill="#1f2a37"/>
 </svg>`;
-const SEG={a:"M130 200H190",b:"M320 200H380",c:"M540 200H600",pt:"M730 200H820",main:"M730 200C775 200 775 75 820 75"};
+const SEG={a:"M130 200H210",b:"M350 200H450",pt:"M600 200H820",main:"M600 200C710 200 710 75 820 75"};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function makeFlow(stage){
@@ -201,39 +199,32 @@ function makeFlow(stage){
   const tmp=document.createElementNS(NS,'path');svg.appendChild(tmp);tmp.style.display='none';
   let tok=0;
   const wait=(ms,t)=>new Promise((ok,no)=>setTimeout(()=>t===tok?ok():no(),reduce?0:ms));
-  function move(d,ms,t,color){return new Promise((ok,no)=>{tmp.setAttribute('d',d);const L=tmp.getTotalLength(),s=performance.now();
+  function move(d,ms,t){return new Promise((ok,no)=>{tmp.setAttribute('d',d);const L=tmp.getTotalLength(),s=performance.now();
     (function f(n){if(t!==tok)return no();const p=reduce?1:Math.min(1,(n-s)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,pt=tmp.getPointAtLength(L*e);
       R.dot.setAttribute('cx',pt.x);R.dot.setAttribute('cy',pt.y);
       if(p<1)requestAnimationFrame(f);else ok()})(s)})}
-  function reset(){['b0','b1','b2','b3','b4','b5','b6'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt','cog','chk','xf'].forEach(k=>R[k].classList.remove('hot-bad','hot-good','target','skip'));
-    R.trail.classList.remove('miss');R.ghost.classList.remove('show');R.strike.setAttribute('opacity',0);
+  function reset(){['b0','b1','b2','b3','b4','b5','b6'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt'].forEach(k=>R[k].classList.remove('hot-bad','target'));
+    R.trail.classList.remove('miss');R.ghost.classList.remove('show');
     R.dot.setAttribute('cx',130);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
   function pulse(x,y,c){R.ring.setAttribute('cx',x);R.ring.setAttribute('cy',y);R.ring.style.stroke=c;
     R.ring.animate([{r:10,opacity:.9},{r:60,opacity:0}],{duration:reduce?1:900,easing:'ease-out'})}
   async function run(mode){
     const t=++tok;
     try{for(;;){
-      reset();const good=mode==='after',rep=mode==='report',bef=mode==='before';
-      R.xf.classList.toggle('off',rep||bef);R.chk.classList.toggle('off',rep||bef);R.hid.classList.toggle('off',!(rep||bef));
+      reset();const good=mode==='after',rep=mode==='report';
       await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
-      if(rep){
-        await move(SEG.a,800,t);await wait(500,t);
-        R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.add('show');
-        const col='#b45309';R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' M320 200H820');R.trail.style.stroke=col;R.trail.style.opacity=.6;R.trail.classList.add('miss');
-        await move('M320 200H820',1600,t);R.pt.classList.add('hot-bad');R.b4.classList.add('show');await wait(3000,t);continue;
-      }
-      await move(SEG.a,800,t);R.b2.classList.add('show');await wait(900,t);
-      if(bef){R.hid.classList.add('off');await wait(500,t);R.xf.classList.remove('off');await wait(700,t)}
-      await move(SEG.b,700,t);R.xf.classList.add('hot-bad');R.b6.classList.add('show');await wait(1300,t);
-      if(bef){R.chk.classList.remove('off');await wait(700,t)}
-      await move(SEG.c,700,t);
-      R.b3.classList.remove('amber','blue','tag');
-      if(good){R.b3.classList.add('blue');R.b3t.textContent='No topic found → DMV'}
-      else{R.chk.classList.add('skip');R.strike.setAttribute('opacity',1);R.b3.classList.add('tag');R.b3t.textContent='Skipped (ran only for DMV)'}
-      R.b3.classList.add('show');await wait(1200,t);
+      await move(SEG.a,800,t);
+      if(!rep){R.b2.classList.add('show');await wait(900,t)}
+      await move(SEG.b,800,t);
+      if(!rep){R.b6.classList.add('show');await wait(1200,t);
+        R.b3.classList.remove('amber','blue','tag');
+        if(good){R.b3.classList.add('blue');R.b3t.textContent='Caller named no topic';R.b3u.textContent='→ sends to DMV (default)'}
+        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller’s words only';R.b3u.textContent='for DMV requests → passed it on'}
+        R.b3.classList.add('show');await wait(1500,t)}
+      else await wait(400,t);
       R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.toggle('show',!good);
       const dest=good?'main':'pt',col=good?'#2563eb':'#b45309';
-      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.c+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
+      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
       await move(SEG[dest],900,t);
       if(good){pulse(907,75,col)}else{R.pt.classList.add('hot-bad');R.b4.classList.add('show')}
       await wait(2600,t);
@@ -273,14 +264,14 @@ document.querySelectorAll('#tog button').forEach(b=>b.onclick=()=>{s3mode=b.data
 /* all-queues map */
 const QD={before:{cap:"Before the fix · Oct 13–14 · 740 transfers",
   q:[["653 calls · incl. all 17 after-hours","good"],["81 calls · 59 generic: should have gone to DMV","bad"],["6 calls · 4 generic: should have gone to DMV","bad"]],
-  closed:"After-hours: all 17 → DMV ✓",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[0,"#2563eb"]},
+  closed:"Closed hours: all 17 → DMV",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[0,"#2563eb"]},
  after:{cap:"After the fix · rules every call follows",
   q:[["Default · generic “representative” calls","good"],["Property tax words · bills, payments","good"],["Past due · tax certificates · tax deeds","good"]],
-  closed:"Mon–Fri 9–5 ET · closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
+  closed:"Closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
 let qmode=QM==='after'?'after':'before',qtok=0;
 function qplay(m){qmode=m;const d=QD[m],tok=++qtok;document.getElementById('qcap').textContent=d.cap;document.getElementById('qclosed').textContent=d.closed;
   d.q.forEach(([t,c],i)=>{const g=document.getElementById('q'+i);g.querySelector('.qs').textContent=t;g.classList.remove('bad','good');g.classList.add(c)});
-  document.getElementById('tqc').setAttribute('d',d.cflow[0]===0?"M405 348C520 348 560 110 640 82":"M405 348C520 348 560 210 640 210");
+  
   const G=document.getElementById('qdots');G.innerHTML='';const ns='http://www.w3.org/2000/svg';
   const shoot=(path,col,delay)=>{const c=document.createElementNS(ns,'circle');c.setAttribute('r',8);c.setAttribute('fill',col);G.appendChild(c);
     const L=path.getTotalLength();let st=null;const f=ts=>{if(tok!==qtok){c.remove();return}if(!st)st=ts;const k=Math.min(1,Math.max(0,(ts-st-delay)/1300));
