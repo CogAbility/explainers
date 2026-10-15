@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fbf8f3;--ink:#1f2a37;--mute:#647184;--line:#e6dfd3;--teal:#0f766e;--amber:#b45309;--red:#c2410c;--green:#15803d}
+:root{--bg:#fbf8f3;--ink:#1f2a37;--mute:#647184;--line:#e6dfd3;--teal:#0f766e;--amber:#b45309;--red:#c2410c;--green:#15803d;--dmv:#2563eb;--pt:#0f766e;--dt:#7c3aed}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;overflow:hidden}
 body{background:radial-gradient(900px 500px at 90% 0%,#e6f4f1,transparent 60%),radial-gradient(800px 500px at 0% 100%,#fdf3e2,transparent 60%),var(--bg);
@@ -27,7 +27,11 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 /* flow svg */
 .nd rect{fill:#fff;stroke:var(--line);stroke-width:2;transition:fill .4s,stroke .4s}
 .nd text{font:600 17px Inter,sans-serif;fill:var(--ink);text-anchor:middle}
-.nd.hot-bad rect{fill:#fdecea;stroke:var(--red)}
+.nd.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-dasharray:6 5}
+.nd.qdmv rect{stroke:var(--dmv)}.nd.qpt rect{stroke:var(--pt)}.nd.qdt rect{stroke:var(--dt)}
+.nd.qdmv.hot-good rect{fill:#e8effd;stroke:var(--dmv)}.nd.qpt.hot-good rect{fill:#e6f4f1;stroke:var(--pt)}
+.nd.qpt.hot-bad rect{fill:#e6f4f1;stroke:var(--pt);stroke-dasharray:none}
+.trail.miss{stroke-dasharray:10 8}
 .nd.hot-good rect{fill:#e8f6ec;stroke:var(--green)}
 .nd.check rect{fill:#fff8ec;stroke:#e7b96b}
 .track{fill:none;stroke:#d8cfc0;stroke-width:3;stroke-dasharray:7 7}
@@ -41,7 +45,8 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .toggle button{border:0;background:none;font:600 .95rem Inter,sans-serif;padding:9px 22px;border-radius:999px;cursor:pointer;color:var(--mute)}
 .toggle button.on{background:var(--ink);color:#fff}
 .qs{font:500 14px Inter,sans-serif!important;fill:var(--mute)!important}
-.q.bad rect{fill:#fdecea;stroke:var(--red)}.q.bad .qs{fill:var(--red)!important}
+#q0 rect{stroke:var(--dmv);fill:#eef3fe}#q1 rect{stroke:var(--pt);fill:#e9f5f2}#q2 rect{stroke:var(--dt);fill:#f3eefd}
+.q.bad .qs{fill:var(--amber)!important}
 .q.good rect{fill:#e8f6ec;stroke:var(--green)}
 .qd{transition:none}
 /* proof */
@@ -84,21 +89,21 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 
   <section class="scene" data-flow="report">
     <div class="k">1 · The report</div>
-    <h1>Seminole County told us some callers reached Property Tax instead of the main queue.</h1>
+    <h1>Seminole County told us some callers reached Property Tax instead of DMV / Driver License.</h1>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="before">
     <div class="k">2 · Why it happened</div>
     <h1>The CogBot guessed Property Tax.</h1>
-    <p class="line">The old safety check only reviewed main-queue picks, so the guess went through.</p>
+    <p class="line">The old “check the caller’s words” step only ran on DMV picks, so the guess went through.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="after" id="s3">
     <div class="k">3 · The fix</div>
-    <h1>Now the check reviews every pick.</h1>
-    <p class="line">If the caller named no topic, the call goes to the main queue.</p>
+    <h1>Now the CogBot checks the caller’s words on every transfer.</h1>
+    <p class="line">No topic named → DMV / Driver License. Topic named → that department.</p>
     <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
     <div class="stage"></div>
   </section>
@@ -109,7 +114,7 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
     <p class="line">Production check, Oct 14, 2:03–4:14 PM CT.</p>
     <div class="stats">
       <div class="stat"><div class="v t" data-to="63">63</div><div class="l">transfers checked</div></div>
-      <div class="stat" style="transition-delay:.12s"><div class="v g" data-to="42">42</div><div class="l">generic requests, all to the main queue</div></div>
+      <div class="stat" style="transition-delay:.12s"><div class="v g" data-to="42">42</div><div class="l">generic requests, all to DMV / Driver License</div></div>
       <div class="stat" style="transition-delay:.24s"><div class="v a" data-to="3">3</div><div class="l">tax callers to Property Tax</div></div>
       <div class="stat" style="transition-delay:.36s"><div class="v g"><span data-to="19">19</span>/19</div><div class="l">unit tests passed</div></div>
     </div>
@@ -157,20 +162,22 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 const NS='http://www.w3.org/2000/svg';
 const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
  <path class="track" d="M150 200H325"/><path class="track" d="M475 200H555"/>
- <path class="track" d="M705 200C770 200 770 90 820 90"/><path class="track" d="M705 200C770 200 770 310 820 310"/>
+ <path class="track" d="M705 200C770 200 770 75 820 75"/><path class="track" d="M705 200H820"/><path class="track" d="M705 200C770 200 770 325 820 325"/>
  <path class="trail" data-r="trail" d=""/>
  <g class="nd" data-r="caller"><rect x="40" y="160" width="110" height="80" rx="40"/><text x="95" y="206">Caller</text></g>
  <g class="nd" data-r="cog"><rect x="325" y="160" width="150" height="80" rx="18"/><text x="400" y="206">CogBot</text></g>
- <g class="nd check" data-r="chk"><rect x="555" y="160" width="150" height="80" rx="18"/><text x="630" y="206">Safety check</text></g>
- <g class="nd" data-r="main"><rect x="820" y="50" width="170" height="80" rx="18"/><text x="905" y="96">Main queue</text></g>
- <g class="nd" data-r="pt"><rect x="820" y="270" width="170" height="80" rx="18"/><text x="905" y="316">Property Tax</text></g>
+ <g class="nd check" data-r="chk"><rect x="555" y="160" width="150" height="80" rx="18"/><text x="630" y="194" style="font-size:15px">Check the</text><text x="630" y="214" style="font-size:15px">caller’s words</text></g>
+ <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
+ <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
+ <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
  <g class="bub" data-r="b1"><rect x="10" y="92" width="190" height="42" rx="21"/><text x="105" y="119">“Speak to someone.”</text></g>
  <g class="bub" data-r="b2"><rect x="315" y="92" width="170" height="42" rx="21"/><text x="400" y="119">Property Tax?</text></g>
- <g class="bub" data-r="b3"><rect x="545" y="262" width="170" height="42" rx="21"/><text x="630" y="289" data-r="b3t"></text></g>
+ <g class="bub" data-r="b3"><rect x="525" y="262" width="210" height="42" rx="21"/><text x="630" y="289" data-r="b3t"></text></g>
+ <g class="bub amber" data-r="b4"><rect x="790" y="235" width="235" height="36" rx="18"/><text x="907" y="259" style="font-size:14px">should have gone to DMV</text></g>
  <circle class="ring" data-r="ring" r="10"/>
- <circle data-r="dot" r="11" cx="150" cy="200" fill="#0f766e"/>
+ <circle data-r="dot" r="11" cx="150" cy="200" fill="#1f2a37"/>
 </svg>`;
-const SEG={a:"M150 200H325",b:"M475 200H555",pt:"M705 200C770 200 770 310 820 310",main:"M705 200C770 200 770 90 820 90"};
+const SEG={a:"M150 200H325",b:"M475 200H555",pt:"M705 200H820",main:"M705 200C770 200 770 75 820 75"};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function makeFlow(stage){
@@ -183,8 +190,8 @@ function makeFlow(stage){
     (function f(n){if(t!==tok)return no();const p=reduce?1:Math.min(1,(n-s)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,pt=tmp.getPointAtLength(L*e);
       R.dot.setAttribute('cx',pt.x);R.dot.setAttribute('cy',pt.y);
       if(p<1)requestAnimationFrame(f);else ok()})(s)})}
-  function reset(){['b1','b2','b3'].forEach(k=>R[k].classList.remove('show'));['main','pt','cog','chk'].forEach(k=>R[k].classList.remove('hot-bad','hot-good'));
-    R.dot.setAttribute('cx',150);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#0f766e');R.trail.setAttribute('d','');R.ring.style.opacity=0}
+  function reset(){['b1','b2','b3','b4'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt','cog','chk'].forEach(k=>R[k].classList.remove('hot-bad','hot-good'));R.trail.classList.remove('miss');
+    R.dot.setAttribute('cx',150);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
   function pulse(x,y,c){R.ring.setAttribute('cx',x);R.ring.setAttribute('cy',y);R.ring.style.stroke=c;
     R.ring.animate([{r:10,opacity:.9},{r:60,opacity:0}],{duration:reduce?1:900,easing:'ease-out'})}
   async function run(mode){
@@ -197,13 +204,13 @@ function makeFlow(stage){
       await move(SEG.b,700,t);
       if(mode!=='report'){
         R.b3.classList.remove('amber','green');R.b3.classList.add(good?'green':'amber');
-        R.b3t.textContent=good?'No topic → main queue':'Not checked → pass';
-        R.b3.classList.add('show');R.chk.classList.add(good?'hot-good':'hot-bad');await wait(1100,t);
+        R.b3t.textContent=good?'No topic → DMV':'Skipped → passed through';
+        R.b3.classList.add('show');await wait(1100,t);
       }
-      const dest=good?'main':'pt',col=good?'#15803d':'#c2410c';
-      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=.35;
+      const dest=good?'main':'pt',col=good?'#2563eb':'#0f766e';
+      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=good||mode==='report'?col:'#b45309';R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
       await move(SEG[dest],900,t);
-      R[dest].classList.add(good?'hot-good':'hot-bad');pulse(905,good?90:310,col);
+      R[dest].classList.add('hot-good');pulse(907,good?75:200,col);if(!good)R.b4.classList.add('show');
       await wait(2400,t);
     }}catch(e){}
   }
@@ -240,11 +247,11 @@ document.querySelectorAll('#tog button').forEach(b=>b.onclick=()=>{s3mode=b.data
 
 /* all-queues map */
 const QD={before:{cap:"Before the fix · Oct 13–14 · 740 transfers",
-  q:[["650 calls · incl. 518 generic","good"],["84 calls · 61 were generic “representative”","bad"],["6 calls · 4 were generic","bad"]],
-  closed:"17 after-hours: 14 DMV, 3 Property Tax",flows:[[0,"#15803d"],[1,"#c2410c"],[2,"#c2410c"],[1,"#c2410c"],[0,"#15803d"]],cflow:[1,"#c2410c"]},
+  q:[["650 calls · incl. 518 generic","good"],["84 calls · 61 generic: should have gone to DMV","bad"],["6 calls · 4 generic: should have gone to DMV","bad"]],
+  closed:"17 after-hours: 14 DMV, 3 Property Tax (should be DMV)",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[1,"#b45309"]},
  after:{cap:"After the fix · rules every call follows",
   q:[["Default · generic “representative” calls","good"],["Property tax words · bills, payments","good"],["Past due · tax certificates · tax deeds","good"]],
-  closed:"Mon–Fri 9–5 ET · closed & holidays → DMV",flows:[[0,"#15803d"],[1,"#15803d"],[0,"#15803d"],[2,"#15803d"],[0,"#15803d"]],cflow:[0,"#15803d"]}};
+  closed:"Mon–Fri 9–5 ET · closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
 let qmode='before',qtok=0;
 function qplay(m){qmode=m;const d=QD[m],tok=++qtok;document.getElementById('qcap').textContent=d.cap;document.getElementById('qclosed').textContent=d.closed;
   d.q.forEach(([t,c],i)=>{const g=document.getElementById('q'+i);g.querySelector('.qs').textContent=t;g.classList.remove('bad','good');g.classList.add(c)});
