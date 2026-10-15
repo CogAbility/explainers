@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CogAbility Explainers</title>
+<style>body{margin:0;background:#fbf8f3;color:#1f2a37;font:16px/1.5 Inter,system-ui,sans-serif}main{max-width:860px;margin:0 auto;padding:56px 24px}
+h1{font:700 2.4rem Georgia,serif;margin:0 0 6px}p.sub{color:#647184;margin:0 0 32px}.card{display:block;background:#fff;border:1px solid #e6dfd3;border-radius:18px;padding:22px 24px;margin-bottom:16px;text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(31,42,55,.05);transition:transform .2s}
+.card:hover{transform:translateY(-2px);border-color:#0f766e}.card h2{margin:0 0 4px;font-size:1.2rem}.meta{color:#647184;font-size:.88rem}.meta a{color:#0f766e}</style></head>
+<body><main><h1>CogAbility Explainers</h1><p class="sub">Short, interactive walkthroughs of issues and fixes.</p><div id="list">Loading…</div></main>
+<script>fetch('explainers.json').then(r=>r.json()).then(xs=>{xs.sort((a,b)=>b.date.localeCompare(a.date));const L=document.getElementById('list');L.innerHTML='';
+xs.forEach(x=>{const a=document.createElement('a');a.className='card';a.href=x.slug+'/';
+a.innerHTML='<h2></h2><div class="s"></div><div class="meta"></div>';a.querySelector('h2').textContent=x.title;a.querySelector('.s').textContent=x.summary;
+a.querySelector('.meta').textContent=x.date+(x.ticket?' · ticket #'+x.ticket.split('/').pop():'');L.appendChild(a)})});</script></body></html>
