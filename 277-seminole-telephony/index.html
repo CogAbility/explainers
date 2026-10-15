@@ -45,6 +45,8 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .bub.show{opacity:1;transform:none}
 .bub rect{fill:var(--ink)}.bub text{fill:#fff;font:600 15px Inter,sans-serif;text-anchor:middle}
 .bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}.bub.red rect{fill:var(--red)}
+.hid rect{fill:#eef0f3;stroke:#b8bec7;stroke-width:2;stroke-dasharray:6 6}.hid text{fill:#647184}
+.fade{transition:opacity .6s}.fade.off{opacity:0}
 .ring{fill:none;stroke-width:3;opacity:0}
 .toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:18px;box-shadow:0 4px 14px rgba(31,42,55,.06)}
 .toggle button{border:0;background:none;font:600 .95rem Inter,sans-serif;padding:9px 22px;border-radius:999px;cursor:pointer;color:var(--mute)}
@@ -94,28 +96,29 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 
   <section class="scene" data-flow="report">
     <div class="k">1 · The report</div>
-    <h1>Seminole County told us some callers reached Property Tax instead of DMV / Driver License.</h1>
+    <h1>What Seminole saw</h1>
+    <p class="line">A caller with no topic reached Property Tax instead of DMV / Driver License.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="before">
     <div class="k">2 · Why it happened</div>
-    <h1>A no-topic call was sent to Property Tax.</h1>
-    <p class="line">The caller named no topic, so it belonged at DMV. The transfer request was filled in as Property Tax anyway, and Detect caller’s topic was skipped.</p>
+    <h1>Why it happened</h1>
+    <p class="line">The voice AI filled in Property Tax, and Detect caller’s topic was skipped.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="after" id="s3">
     <div class="k">3 · The fix</div>
-    <h1>Now the Detect caller’s topic step runs on every transfer.</h1>
-    <p class="line">Detect caller’s topic now checks every transfer request. No topic found → DMV.</p>
+    <h1>The fix</h1>
+    <p class="line">Detect caller’s topic now checks every transfer. No topic found → DMV.</p>
     <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
     <div class="stage"></div>
   </section>
 
   <section class="scene" id="s4">
     <div class="k">4 · Proof</div>
-    <h1>Fix holds in live calls.</h1>
+    <h1>Live call results</h1>
     <p class="line">Production check, Oct 14, 2:03–4:14 PM CT.</p>
     <div class="stats">
       <div class="stat"><div class="v t" data-to="63">63</div><div class="l">transfers checked</div></div>
@@ -148,7 +151,8 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 
   <section class="scene">
     <div class="k">6 · Confirmed</div>
-    <h1>The Property Tax number is confirmed</h1>
+    <h1>Property Tax number confirmed</h1>
+    <p class="line">The phone number already in production is correct.</p>
     <div class="nums">
       <div class="num cur"><b>407-665-7636</b><span>confirmed correct · already in production</span></div>
     </div>
@@ -172,8 +176,9 @@ const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
  <path class="trail" data-r="trail" d=""/>
  <g class="nd" data-r="caller"><rect x="20" y="165" width="110" height="70" rx="35"/><text x="75" y="206">Caller</text></g>
  <g class="nd" data-r="cog"><rect x="190" y="165" width="130" height="70" rx="18"/><text x="255" y="206">CogBot</text></g>
- <g class="nd" data-r="xf"><rect x="380" y="160" width="160" height="80" rx="18"/><text x="460" y="193" style="font-size:14px;fill:#647184">Transfer request</text><text x="460" y="216" style="font-size:15px">Dept: Property Tax</text></g>
- <g class="nd check" data-r="chk"><rect x="600" y="160" width="130" height="80" rx="18"/><text x="665" y="194" style="font-size:14px">Detect</text><text x="665" y="214" style="font-size:14px">caller’s topic</text><line data-r="strike" x1="612" y1="200" x2="718" y2="200" stroke="#647184" stroke-width="2.5" opacity="0"/></g>
+ <g class="nd hid fade off" data-r="hid"><rect x="370" y="160" width="370" height="80" rx="18"/><text x="555" y="196" style="font-size:22px">?</text><text x="555" y="222" style="font-size:14px">inside the CogBot</text></g>
+ <g class="nd fade" data-r="xf"><rect x="380" y="160" width="160" height="80" rx="18"/><text x="460" y="193" style="font-size:14px;fill:#647184">Transfer request</text><text x="460" y="216" style="font-size:15px">Dept: Property Tax</text></g>
+ <g class="nd check fade" data-r="chk"><rect x="600" y="160" width="130" height="80" rx="18"/><text x="665" y="194" style="font-size:14px">Detect</text><text x="665" y="214" style="font-size:14px">caller’s topic</text><line data-r="strike" x1="612" y1="200" x2="718" y2="200" stroke="#647184" stroke-width="2.5" opacity="0"/></g>
  <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
  <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
  <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
@@ -208,10 +213,19 @@ function makeFlow(stage){
   async function run(mode){
     const t=++tok;
     try{for(;;){
-      reset();const good=mode==='after';
+      reset();const good=mode==='after',rep=mode==='report',bef=mode==='before';
+      R.xf.classList.toggle('off',rep||bef);R.chk.classList.toggle('off',rep||bef);R.hid.classList.toggle('off',!(rep||bef));
       await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+      if(rep){
+        await move(SEG.a,800,t);await wait(500,t);
+        R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.add('show');
+        const col='#b45309';R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' M320 200H820');R.trail.style.stroke=col;R.trail.style.opacity=.6;R.trail.classList.add('miss');
+        await move('M320 200H820',1600,t);R.pt.classList.add('hot-bad');R.b4.classList.add('show');await wait(3000,t);continue;
+      }
       await move(SEG.a,800,t);R.b2.classList.add('show');await wait(900,t);
+      if(bef){R.hid.classList.add('off');await wait(500,t);R.xf.classList.remove('off');await wait(700,t)}
       await move(SEG.b,700,t);R.xf.classList.add('hot-bad');R.b6.classList.add('show');await wait(1300,t);
+      if(bef){R.chk.classList.remove('off');await wait(700,t)}
       await move(SEG.c,700,t);
       R.b3.classList.remove('amber','blue','tag');
       if(good){R.b3.classList.add('blue');R.b3t.textContent='No topic found → DMV'}
@@ -233,7 +247,7 @@ const scenes=[...document.querySelectorAll('.scene')],flows=new Map();
 scenes.forEach(s=>{if(s.dataset.flow)flows.set(s,makeFlow(s.querySelector('.stage')))});
 const dotsEl=document.getElementById('dots');
 scenes.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Scene '+(i+1));b.onclick=()=>go(i);dotsEl.appendChild(b)});
-let cur=-1,s3mode='after';
+const QM=new URLSearchParams(location.search).get('m');let cur=-1,s3mode=QM==='before'?'before':'after';
 function go(i){
   i=Math.max(0,Math.min(scenes.length-1,i));if(i===cur)return;
   flows.forEach(f=>f.stop());cur=i;
@@ -263,7 +277,7 @@ const QD={before:{cap:"Before the fix · Oct 13–14 · 740 transfers",
  after:{cap:"After the fix · rules every call follows",
   q:[["Default · generic “representative” calls","good"],["Property tax words · bills, payments","good"],["Past due · tax certificates · tax deeds","good"]],
   closed:"Mon–Fri 9–5 ET · closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
-let qmode='before',qtok=0;
+let qmode=QM==='after'?'after':'before',qtok=0;
 function qplay(m){qmode=m;const d=QD[m],tok=++qtok;document.getElementById('qcap').textContent=d.cap;document.getElementById('qclosed').textContent=d.closed;
   d.q.forEach(([t,c],i)=>{const g=document.getElementById('q'+i);g.querySelector('.qs').textContent=t;g.classList.remove('bad','good');g.classList.add(c)});
   document.getElementById('tqc').setAttribute('d',d.cflow[0]===0?"M405 348C520 348 560 110 640 82":"M405 348C520 348 560 210 640 210");
@@ -275,6 +289,7 @@ function qplay(m){qmode=m;const d=QD[m],tok=++qtok;document.getElementById('qcap
   const loop=()=>{if(tok!==qtok)return;d.flows.forEach(([q,col],i)=>shoot(document.getElementById('tq'+q),col,i*450));
     shoot(document.getElementById('tqc'),d.cflow[1],900);setTimeout(loop,3600)};loop();}
 document.querySelectorAll('#qtog button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#qtog button').forEach(x=>x.classList.toggle('on',x===b));qplay(b.dataset.m)});
+document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s3mode));document.querySelectorAll('#qtog button').forEach(x=>x.classList.toggle('on',x.dataset.m===qmode));
 const h=parseInt(location.hash.slice(1));go(h>=1&&h<=scenes.length?h-1:0);
 </script>
 </body>
