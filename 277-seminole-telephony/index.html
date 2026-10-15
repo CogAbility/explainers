@@ -253,8 +253,8 @@ document.querySelectorAll('#tog button').forEach(b=>b.onclick=()=>{s3mode=b.data
 
 /* all-queues map */
 const QD={before:{cap:"Before the fix · Oct 13–14 · 740 transfers",
-  q:[["650 calls · incl. 518 generic","good"],["84 calls · 61 generic: should have gone to DMV","bad"],["6 calls · 4 generic: should have gone to DMV","bad"]],
-  closed:"17 after-hours: 14 DMV, 3 Property Tax (should be DMV)",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[1,"#b45309"]},
+  q:[["653 calls · incl. all 17 after-hours","good"],["81 calls · 59 generic: should have gone to DMV","bad"],["6 calls · 4 generic: should have gone to DMV","bad"]],
+  closed:"After-hours: all 17 → DMV ✓",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[0,"#2563eb"]},
  after:{cap:"After the fix · rules every call follows",
   q:[["Default · generic “representative” calls","good"],["Property tax words · bills, payments","good"],["Past due · tax certificates · tax deeds","good"]],
   closed:"Mon–Fri 9–5 ET · closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
