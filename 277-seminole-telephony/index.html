@@ -220,7 +220,7 @@ function makeFlow(stage){
         await move(SEG.b,800,t);R.b6.classList.add('show');await wait(1100,t);
         R.b3.classList.remove('amber','blue','tag','teal');R.b3.classList.add('amber');
         R.b3t.textContent=look?'Only last 3 turns checked':'Phrase list had no match';
-        R.b3u.textContent='→ left CogBot's DMV pick';
+        R.b3u.textContent='→ left CogBot\'s DMV pick';
         R.b3.classList.add('show');await wait(1400,t);
         R.pt.classList.add('target');R.b7.classList.add('show');R.ghost.classList.add('show');
         R.dot.setAttribute('fill','#b45309');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.main);
@@ -243,7 +243,7 @@ function makeFlow(stage){
       if(!rep){R.b6.classList.add('show');await wait(1200,t);
         R.b3.classList.remove('amber','blue','tag','teal');
         if(good){R.b3.classList.add('blue');R.b3t.textContent='Caller named no topic';R.b3u.textContent='→ sends to DMV (default)'}
-        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller's words only';R.b3u.textContent='for DMV requests → passed it on'}
+        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller\'s words only';R.b3u.textContent='for DMV requests → passed it on'}
         R.b3.classList.add('show');await wait(1500,t)}
       else await wait(400,t);
       R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.toggle('show',!good);
