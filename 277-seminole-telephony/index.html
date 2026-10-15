@@ -21,10 +21,9 @@ body{background:radial-gradient(900px 500px at 90% 0%,#e6f4f1,transparent 60%),r
 .scene.past{transform:translateX(-60px)}
 .k{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
 h1{font-family:Fraunces,Georgia,serif;font-size:clamp(1.7rem,3.6vw,2.8rem);line-height:1.15;text-align:center;max-width:900px}
-p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;max-width:760px;margin-top:10px}
-.stage{width:min(1000px,100%);margin-top:26px}
+p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;max-width:780px;margin-top:10px}
+.stage{width:min(1000px,100%);margin-top:22px}
 .stage svg{width:100%;height:auto;display:block;overflow:visible}
-/* flow svg */
 .nd rect{fill:#fff;stroke:var(--line);stroke-width:2;transition:fill .4s,stroke .4s}
 .nd text{font:600 17px Inter,sans-serif;fill:var(--ink);text-anchor:middle}
 .nd.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-dasharray:6 5}
@@ -33,53 +32,47 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .nd.target rect{fill:#e8effd;stroke:var(--dmv);stroke-width:3}
 .ghost{fill:none;stroke:var(--dmv);stroke-width:4;stroke-dasharray:2 9;stroke-linecap:round;opacity:0;transition:opacity .4s}.ghost.show{opacity:.9}
 .bub.blue rect{fill:var(--dmv)}.bub.tag rect{fill:#fff;stroke:var(--mute);stroke-width:1.5}.bub.tag text{fill:var(--mute)}
-.nd.skip rect{fill:#f1f1f1;stroke:#b8b8b8;stroke-dasharray:5 5}.nd.skip text{fill:#9aa3ae!important}
-.nd.xf.hot-bad rect,.nd[data-r=xf].hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-dasharray:none}
-.nd.qpt.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-width:3;stroke-dasharray:6 5}
+.nd.qpt.hot-bad rect,.nd.qdmv.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-width:3;stroke-dasharray:6 5}
 .trail.miss{stroke-dasharray:10 8}
 .nd.hot-good rect{fill:#e8f6ec;stroke:var(--green)}
-.nd.check rect{fill:#fff8ec;stroke:#e7b96b}
 .track{fill:none;stroke:#d8cfc0;stroke-width:3;stroke-dasharray:7 7}
 .trail{fill:none;stroke-width:5;stroke-linecap:round}
 .bub{opacity:0;transition:opacity .35s,transform .35s;transform-box:fill-box;transform-origin:center bottom;transform:scale(.8)}
 .bub.show{opacity:1;transform:none}
 .bub rect{fill:var(--ink)}.bub text{fill:#fff;font:600 15px Inter,sans-serif;text-anchor:middle}
-.bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}
-.hid rect{fill:#eef0f3;stroke:#b8bec7;stroke-width:2;stroke-dasharray:6 6}.hid text{fill:#647184}
-.fade{transition:opacity .6s}.fade.off{opacity:0}
+.bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}.bub.teal rect{fill:var(--pt)}
 .ring{fill:none;stroke-width:3;opacity:0}
-.toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:18px;box-shadow:0 4px 14px rgba(31,42,55,.06)}
-.toggle button{border:0;background:none;font:600 .95rem Inter,sans-serif;padding:9px 22px;border-radius:999px;cursor:pointer;color:var(--mute)}
+.toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:14px;box-shadow:0 4px 14px rgba(31,42,55,.06)}
+.toggle button{border:0;background:none;font:600 .92rem Inter,sans-serif;padding:9px 18px;border-radius:999px;cursor:pointer;color:var(--mute)}
 .toggle button.on{background:var(--ink);color:#fff}
-.qs{font:500 14px Inter,sans-serif!important;fill:var(--mute)!important}
-#q0 rect{stroke:var(--dmv);fill:#eef3fe}#q1 rect{stroke:var(--pt);fill:#e9f5f2}#q2 rect{stroke:var(--dt);fill:#f3eefd}
-.q.bad .qs{fill:var(--amber)!important}
-.q.good rect{fill:#e8f6ec;stroke:var(--green)}
-.qd{transition:none}
-/* proof */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:min(1000px,100%);margin-top:34px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:min(1000px,100%);margin-top:28px}
 @media(max-width:820px){.stats{grid-template-columns:1fr 1fr}}
-.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 18px;text-align:center;box-shadow:0 8px 24px rgba(31,42,55,.06);
+.stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 14px;text-align:center;box-shadow:0 8px 24px rgba(31,42,55,.06);
   opacity:0;transform:translateY(20px);transition:all .6s cubic-bezier(.2,.7,.2,1)}
 .on .stat{opacity:1;transform:none}
-.stat .v{font:700 clamp(2.4rem,5vw,3.8rem)/1 Fraunces,serif}
-.stat .l{color:var(--mute);margin-top:10px;font-size:.95rem}
-.v.t{color:var(--teal)}.v.g{color:var(--green)}.v.a{color:var(--amber)}
-/* left */
-.nums{display:flex;gap:18px;align-items:center;margin-top:34px;flex-wrap:wrap;justify-content:center}
-.num{background:#fff;border:2px solid var(--line);border-radius:20px;padding:22px 30px;text-align:center;min-width:230px}
-.num b{display:block;font:700 2.2rem Fraunces,serif}
-.num span{color:var(--mute);font-size:.95rem}
-.num.cur{border-color:var(--teal)}
-.vs{font:700 1.2rem Fraunces,serif;color:var(--mute)}
-.done{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:#e6f5ef;color:var(--teal);border:1.5px solid #9fd8c2;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem}
+.stat .v{font:700 clamp(2.2rem,4.6vw,3.4rem)/1 Fraunces,serif}
+.stat .l{color:var(--mute);margin-top:10px;font-size:.9rem}
+.v.t{color:var(--teal)}.v.g{color:var(--green)}.v.a{color:var(--amber)}.v.b{color:var(--dmv)}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:min(920px,100%);margin-top:22px}
+@media(max-width:720px){.notes{grid-template-columns:1fr}}
+.note{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-align:left;box-shadow:0 6px 18px rgba(31,42,55,.05);
+  opacity:0;transform:translateY(16px);transition:all .55s cubic-bezier(.2,.7,.2,1)}
+.on .note{opacity:1;transform:none}
+.note b{display:block;font:600 .95rem Inter,sans-serif;margin-bottom:4px}
+.note span{color:var(--mute);font-size:.9rem;line-height:1.45}
+.note.ok{border-color:#9fd8c2}.note.miss{border-color:#e7b96b}
+.fixes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:min(960px,100%);margin-top:24px}
+@media(max-width:720px){.fixes{grid-template-columns:1fr}}
+.fix{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;text-align:left;box-shadow:0 6px 18px rgba(31,42,55,.05);
+  opacity:0;transform:translateY(16px);transition:all .55s cubic-bezier(.2,.7,.2,1)}
+.on .fix{opacity:1;transform:none}
+.fix .tag{display:inline-block;font:700 .72rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.fix b{display:block;font:600 1.05rem Inter,sans-serif;margin-bottom:6px}
+.fix span{color:var(--mute);font-size:.92rem;line-height:1.45}
+.done{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#e6f5ef;color:var(--teal);border:1.5px solid #9fd8c2;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem}
 .done i{width:9px;height:9px;border-radius:50%;background:var(--teal)}
-.pend{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:#fdf3e2;color:var(--amber);border:1.5px dashed #e7b96b;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem}
-.pend i{width:9px;height:9px;border-radius:50%;background:var(--amber);animation:pulse 1.4s infinite}
-@keyframes pulse{50%{opacity:.25}}
-.links{margin-top:26px;display:flex;gap:14px;font-size:.88rem}
+.links{margin-top:18px;display:flex;gap:14px;font-size:.88rem;flex-wrap:wrap;justify-content:center}
 .links a{color:var(--teal);font-weight:600;text-decoration:none;border-bottom:1.5px solid #bfe3dc}
-/* nav */
 .bar{position:fixed;left:0;right:0;bottom:26px;display:flex;align-items:center;justify-content:center;gap:22px;z-index:5}
 .dots{display:flex;gap:10px}
 .dots button{width:11px;height:11px;border-radius:999px;border:0;background:#d8cfc0;cursor:pointer;padding:0;transition:all .35s}
@@ -104,60 +97,59 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
   <section class="scene" data-flow="before">
     <div class="k">2 · Why it happened</div>
     <h1>Why it happened</h1>
-    <p class="line">The caller named no topic, but CogBot filled in Property Tax. The Router didn’t check it.</p>
+    <p class="line">The caller named no topic, but CogBot filled in Property Tax. The Router didn't check it.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="after" id="s3">
-    <div class="k">3 · The fix</div>
-    <h1>The fix</h1>
-    <p class="line">The Router now checks the caller’s words on every request.</p>
+    <div class="k">3 · The first fix</div>
+    <h1>The first fix</h1>
+    <p class="line">The Router now checks the caller's words on every request.</p>
     <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
     <div class="stage"></div>
   </section>
 
   <section class="scene" id="s4">
-    <div class="k">4 · Proof</div>
-    <h1>Live call results</h1>
-    <p class="line">Production check, Oct 14, 2:03–4:14 PM CT.</p>
+    <div class="k">4 · Live results</div>
+    <h1>Real calls after the first fix</h1>
+    <p class="line">83 transfers · Oct 14, 4:12 PM – Oct 15, 10:00 AM CT</p>
     <div class="stats">
-      <div class="stat"><div class="v t" data-to="63">63</div><div class="l">transfers checked</div></div>
-      <div class="stat" style="transition-delay:.12s"><div class="v g" data-to="42">42</div><div class="l">generic requests, all to DMV / Driver License</div></div>
-      <div class="stat" style="transition-delay:.24s"><div class="v a" data-to="3">3</div><div class="l">tax callers to Property Tax</div></div>
-      <div class="stat" style="transition-delay:.36s"><div class="v g"><span data-to="19">19</span>/19</div><div class="l">unit tests passed</div></div>
+      <div class="stat"><div class="v t" data-to="83">83</div><div class="l">transfers checked</div></div>
+      <div class="stat" style="transition-delay:.1s"><div class="v g" data-to="81">81</div><div class="l">routed to the right queue</div></div>
+      <div class="stat" style="transition-delay:.2s"><div class="v a" data-to="2">2</div><div class="l">should have reached Property Tax</div></div>
+      <div class="stat" style="transition-delay:.3s"><div class="v g" data-to="0">0</div><div class="l">times the original bug returned</div></div>
+    </div>
+    <div class="notes">
+      <div class="note ok" style="transition-delay:.15s"><b>Router corrected a live call</b><span>At 9:58 AM CT a caller asked what they owed on property tax. CogBot asked for DMV; the Router switched it to Property Tax.</span></div>
+      <div class="note miss" style="transition-delay:.25s"><b>Two misses both went to DMV</b><span>One topic fell outside the Router's 3-turn window. One used "occupational license," which had no Property Tax phrase yet.</span></div>
     </div>
   </section>
 
-  <section class="scene" id="s5q">
-    <div class="k">5 · All three queues</div>
-    <h1>Where every call goes</h1>
-    <p class="line" id="qcap">Before the fix · Oct 13–14 · 740 transfers</p>
-    <div class="stage"><svg viewBox="0 0 1000 420" id="qmap">
-      <g class="nd"><rect x="10" y="170" width="120" height="64" rx="32"/><text x="70" y="208">Caller</text></g>
-      <g class="nd"><rect x="180" y="170" width="130" height="64" rx="16"/><text x="245" y="208">CogBot</text></g>
-      <g class="nd"><rect x="360" y="170" width="140" height="64" rx="16"/><text x="430" y="208">Router</text></g>
-      <path class="track" d="M130 202H180"/><path class="track" d="M310 202H360"/>
-      <path class="track" id="tq0" d="M500 202C570 202 570 70 640 70"/>
-      <path class="track" id="tq1" d="M500 202H640"/>
-      <path class="track" id="tq2" d="M500 202C570 202 570 334 640 334"/>
-      <path class="track" id="tqc" d="M500 202C570 202 570 70 640 70" style="display:none"/>
-      <g class="nd q" id="q0"><rect x="640" y="36" width="340" height="68" rx="16"/><text x="810" y="64">DMV / Driver License</text><text class="qs" x="810" y="88"></text></g>
-      <g class="nd q" id="q1"><rect x="640" y="168" width="340" height="68" rx="16"/><text x="810" y="196">Property Tax</text><text class="qs" x="810" y="220"></text></g>
-      <g class="nd q" id="q2"><rect x="640" y="300" width="340" height="68" rx="16"/><text x="810" y="328">Delinquent Tax</text><text class="qs" x="810" y="352"></text></g>
-      <text id="qclosed" x="430" y="262" style="font:600 14px Inter,sans-serif;text-anchor:middle;fill:#647184"></text><g id="qdots"></g>
-    </svg></div>
-    <div class="toggle" id="qtog"><button data-m="before" class="on">Before</button><button data-m="after">After</button></div>
+  <section class="scene" data-flow="miss" id="s5">
+    <div class="k">5 · Two misses</div>
+    <h1>What still went wrong</h1>
+    <p class="line" id="misscap">Topic named early, then short turns — Router only saw the last 3.</p>
+    <div class="toggle" id="mtog"><button data-m="lookback" class="on">Topic fell out</button><button data-m="phrase">Missing phrase</button></div>
+    <div class="stage"></div>
   </section>
 
-  <section class="scene">
-    <div class="k">6 · Confirmed</div>
-    <h1>Property Tax number confirmed</h1>
-    <p class="line">The phone number already in production is correct.</p>
-    <div class="nums">
-      <div class="num cur"><b>407-665-7636</b><span>confirmed correct · already in production</span></div>
+  <section class="scene" id="s6">
+    <div class="k">6 · What's live now</div>
+    <h1>The follow-up fix</h1>
+    <p class="line">Shipped in be-pfc #283 · lookback, phrases, prompt, and a routing metric.</p>
+    <div class="fixes">
+      <div class="fix" style="transition-delay:.05s"><div class="tag">Lookback</div><b>8 caller turns</b><span>Router now reads TRANSFER_TOPIC_LOOKBACK = 8, so an earlier "Property tax" still counts after short turns.</span></div>
+      <div class="fix" style="transition-delay:.12s"><div class="tag">Phrases</div><b>Business tax words added</b><span>Property Tax now matches occupational license, business license, business tax receipt, new business, and business tax.</span></div>
+      <div class="fix" style="transition-delay:.19s"><div class="tag">Prompt</div><b>Stronger CogBot note</b><span>If the call already covered a department's topics, CogBot should pass that department — not the DMV default.</span></div>
+      <div class="fix" style="transition-delay:.26s"><div class="tag">Metric</div><b>CogBot vs final queue</b><span>Every transfer logs CogBot's pick, the phrase match, the final queue, and whether the Router corrected it.</span></div>
     </div>
-    <div class="done"><i></i>Confirmed by kraturi on Oct 15 · no change needed</div>
-    <div class="links"><a href="https://github.com/CogAbility/be-pfc/pull/281" target="_blank" rel="noopener">PR #281</a><a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277" target="_blank" rel="noopener">Ticket #277</a><a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277#issuecomment-6188172761" target="_blank" rel="noopener">Confirmation</a></div>
+    <div class="done"><i></i>Deployed · Seminole phrases applied · Oct 15</div>
+    <div class="links">
+      <a href="https://github.com/CogAbility/be-pfc/pull/283" target="_blank" rel="noopener">PR #283</a>
+      <a href="https://github.com/CogAbility/be-pfc/pull/281" target="_blank" rel="noopener">PR #281</a>
+      <a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277" target="_blank" rel="noopener">Ticket #277</a>
+      <a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277#issuecomment-6195306241" target="_blank" rel="noopener">Real-call results</a>
+    </div>
   </section>
 </div>
 
@@ -180,13 +172,14 @@ const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
  <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
  <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
  <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
- <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px">“Speak to someone.”</text></g>
- <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px">No topic mentioned</text></g>
- <g class="bub tag" data-r="b2"><rect x="215" y="250" width="130" height="30" rx="15"/><text x="280" y="270" style="font-size:13px">Topic: unknown</text></g>
- <g class="bub amber" data-r="b6"><rect x="270" y="132" width="260" height="46" rx="16"/><text x="400" y="151" style="font-size:13px">CogBot filled in: Property Tax</text><text x="400" y="169" style="font-size:11px">(caller named no topic)</text></g>
+ <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px" data-r="b1t">"Speak to someone."</text></g>
+ <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px" data-r="b0t">No topic mentioned</text></g>
+ <g class="bub tag" data-r="b2"><rect x="215" y="250" width="130" height="30" rx="15"/><text x="280" y="270" style="font-size:13px" data-r="b2t">Topic: unknown</text></g>
+ <g class="bub amber" data-r="b6"><rect x="270" y="132" width="260" height="46" rx="16"/><text x="400" y="151" style="font-size:13px" data-r="b6t">CogBot filled in: Property Tax</text><text x="400" y="169" style="font-size:11px" data-r="b6u">(caller named no topic)</text></g>
  <g class="bub" data-r="b3"><rect x="420" y="250" width="210" height="50" rx="16"/><text x="525" y="271" style="font-size:13px" data-r="b3t"></text><text x="525" y="289" style="font-size:12px" data-r="b3u"></text></g>
- <g class="bub amber" data-r="b4"><rect x="835" y="236" width="145" height="30" rx="15"/><text x="907" y="256" style="font-size:13px">Wrong queue</text></g>
+ <g class="bub amber" data-r="b4"><rect x="835" y="112" width="145" height="30" rx="15"/><text x="907" y="132" style="font-size:13px" data-r="b4t">Wrong queue</text></g>
  <g class="bub blue" data-r="b5"><rect x="835" y="8" width="145" height="30" rx="15"/><text x="907" y="28" style="font-size:13px">Correct queue</text></g>
+ <g class="bub teal" data-r="b7"><rect x="835" y="236" width="145" height="30" rx="15"/><text x="907" y="256" style="font-size:13px">Should be here</text></g>
  <circle class="ring" data-r="ring" r="10"/>
  <circle data-r="dot" r="11" cx="130" cy="200" fill="#1f2a37"/>
 </svg>`;
@@ -203,42 +196,74 @@ function makeFlow(stage){
     (function f(n){if(t!==tok)return no();const p=reduce?1:Math.min(1,(n-s)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,pt=tmp.getPointAtLength(L*e);
       R.dot.setAttribute('cx',pt.x);R.dot.setAttribute('cy',pt.y);
       if(p<1)requestAnimationFrame(f);else ok()})(s)})}
-  function reset(){['b0','b1','b2','b3','b4','b5','b6'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt'].forEach(k=>R[k].classList.remove('hot-bad','target'));
+  function reset(){['b0','b1','b2','b3','b4','b5','b6','b7'].forEach(k=>R[k].classList.remove('show'));
+    ['main','pt','dt'].forEach(k=>R[k].classList.remove('hot-bad','target','hot-good'));
     R.trail.classList.remove('miss');R.ghost.classList.remove('show');
     R.dot.setAttribute('cx',130);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
   function pulse(x,y,c){R.ring.setAttribute('cx',x);R.ring.setAttribute('cy',y);R.ring.style.stroke=c;
     R.ring.animate([{r:10,opacity:.9},{r:60,opacity:0}],{duration:reduce?1:900,easing:'ease-out'})}
+  function setBub(id,t1,t2){if(R[id+'t'])R[id+'t'].textContent=t1;if(R[id+'u'])R[id+'u'].textContent=t2||''}
   async function run(mode){
     const t=++tok;
     try{for(;;){
-      reset();const good=mode==='after',rep=mode==='report';
+      reset();
+      if(mode==='lookback'||mode==='phrase'){
+        const look=mode==='lookback';
+        setBub('b1',look?'"Speak to someone."':'"Someone who knows the law?"');
+        setBub('b0',look?'Said "Property tax" earlier':'Asked about a new business');
+        R.b0.querySelector('rect').setAttribute('width',look?168:170);
+        setBub('b2',look?'Asked for DMV':'Asked for DMV');
+        setBub('b6',look?'Topic outside 3-turn window':'No matching Property Tax phrase',look?'earlier words no longer visible':'occupational license / new business');
+        R.b6.querySelector('rect').setAttribute('width',280);
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(1000,t);
+        await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
+        await move(SEG.b,800,t);R.b6.classList.add('show');await wait(1100,t);
+        R.b3.classList.remove('amber','blue','tag','teal');R.b3.classList.add('amber');
+        R.b3t.textContent=look?'Only last 3 turns checked':'Phrase list had no match';
+        R.b3u.textContent='→ left CogBot's DMV pick';
+        R.b3.classList.add('show');await wait(1400,t);
+        R.pt.classList.add('target');R.b7.classList.add('show');R.ghost.classList.add('show');
+        R.dot.setAttribute('fill','#b45309');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.main);
+        R.trail.style.stroke='#b45309';R.trail.style.opacity=.6;R.trail.classList.add('miss');
+        await move(SEG.main,900,t);
+        R.main.classList.add('hot-bad');R.b4.classList.add('show');
+        await wait(2600,t);
+        continue;
+      }
+      const good=mode==='after',rep=mode==='report';
+      setBub('b1','"Speak to someone."');setBub('b0','No topic mentioned');
+      R.b0.querySelector('rect').setAttribute('width',140);
+      setBub('b2','Topic: unknown');
+      setBub('b6','CogBot filled in: Property Tax','(caller named no topic)');
+      R.b6.querySelector('rect').setAttribute('width',260);
       await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
       await move(SEG.a,800,t);
       if(!rep){R.b2.classList.add('show');await wait(900,t)}
       await move(SEG.b,800,t);
       if(!rep){R.b6.classList.add('show');await wait(1200,t);
-        R.b3.classList.remove('amber','blue','tag');
+        R.b3.classList.remove('amber','blue','tag','teal');
         if(good){R.b3.classList.add('blue');R.b3t.textContent='Caller named no topic';R.b3u.textContent='→ sends to DMV (default)'}
-        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller’s words only';R.b3u.textContent='for DMV requests → passed it on'}
+        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller's words only';R.b3u.textContent='for DMV requests → passed it on'}
         R.b3.classList.add('show');await wait(1500,t)}
       else await wait(400,t);
       R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.toggle('show',!good);
       const dest=good?'main':'pt',col=good?'#2563eb':'#b45309';
       R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
       await move(SEG[dest],900,t);
-      if(good){pulse(907,75,col)}else{R.pt.classList.add('hot-bad');R.b4.classList.add('show')}
+      if(good){pulse(907,75,col)}else{R.pt.classList.add('hot-bad');R.b4.classList.add('show');setBub('b4','Wrong queue')}
       await wait(2600,t);
     }}catch(e){}
   }
   return {play:run,stop:()=>{tok++}};
 }
 
-// deck
 const scenes=[...document.querySelectorAll('.scene')],flows=new Map();
 scenes.forEach(s=>{if(s.dataset.flow)flows.set(s,makeFlow(s.querySelector('.stage')))});
 const dotsEl=document.getElementById('dots');
 scenes.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Scene '+(i+1));b.onclick=()=>go(i);dotsEl.appendChild(b)});
-const QM=new URLSearchParams(location.search).get('m');let cur=-1,s3mode=QM==='before'?'before':'after';
+const QM=new URLSearchParams(location.search).get('m');let cur=-1,s3mode=QM==='before'?'before':'after',s5mode='lookback';
+const MISS={lookback:'Topic named early, then short turns — Router only saw the last 3.',
+  phrase:'Caller asked about a new-business license — no Property Tax phrase matched.'};
 function go(i){
   i=Math.max(0,Math.min(scenes.length-1,i));if(i===cur)return;
   flows.forEach(f=>f.stop());cur=i;
@@ -248,8 +273,8 @@ function go(i){
   const nx=document.getElementById('next');nx.disabled=i===scenes.length-1;
   history.replaceState(null,'','#'+(i+1));
   const s=scenes[i];
-  if(s.id==='s5q')qplay(qmode);
-  if(flows.has(s))flows.get(s).play(s.id==='s3'?s3mode:s.dataset.flow);
+  if(s.id==='s5'){document.getElementById('misscap').textContent=MISS[s5mode];flows.get(s).play(s5mode)}
+  else if(flows.has(s))flows.get(s).play(s.id==='s3'?s3mode:s.dataset.flow);
   if(s.id==='s4')s.querySelectorAll('[data-to]').forEach(v=>{const to=+v.dataset.to;if(reduce){v.textContent=to;return}
     const st=performance.now();(function f(n){const p=Math.min(1,(n-st)/1500);v.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1&&cur===i)requestAnimationFrame(f);else v.textContent=to})(st)});
 }
@@ -260,27 +285,12 @@ let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:tr
 addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));tx=null},{passive:true});
 document.querySelectorAll('#tog button').forEach(b=>b.onclick=()=>{s3mode=b.dataset.m;
   document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x===b));flows.get(document.getElementById('s3')).play(s3mode)});
-
-/* all-queues map */
-const QD={before:{cap:"Before the fix · Oct 13–14 · 740 transfers",
-  q:[["653 calls · incl. all 17 after-hours","good"],["81 calls · 59 generic: should have gone to DMV","bad"],["6 calls · 4 generic: should have gone to DMV","bad"]],
-  closed:"Closed hours: all 17 → DMV",flows:[[0,"#2563eb"],[1,"#b45309"],[2,"#b45309"],[1,"#0f766e"],[0,"#2563eb"]],cflow:[0,"#2563eb"]},
- after:{cap:"After the fix · rules every call follows",
-  q:[["Default · generic “representative” calls","good"],["Property tax words · bills, payments","good"],["Past due · tax certificates · tax deeds","good"]],
-  closed:"Closed & holidays → DMV",flows:[[0,"#2563eb"],[1,"#0f766e"],[0,"#2563eb"],[2,"#7c3aed"],[0,"#2563eb"]],cflow:[0,"#2563eb"]}};
-let qmode=QM==='after'?'after':'before',qtok=0;
-function qplay(m){qmode=m;const d=QD[m],tok=++qtok;document.getElementById('qcap').textContent=d.cap;document.getElementById('qclosed').textContent=d.closed;
-  d.q.forEach(([t,c],i)=>{const g=document.getElementById('q'+i);g.querySelector('.qs').textContent=t;g.classList.remove('bad','good');g.classList.add(c)});
-  
-  const G=document.getElementById('qdots');G.innerHTML='';const ns='http://www.w3.org/2000/svg';
-  const shoot=(path,col,delay)=>{const c=document.createElementNS(ns,'circle');c.setAttribute('r',8);c.setAttribute('fill',col);G.appendChild(c);
-    const L=path.getTotalLength();let st=null;const f=ts=>{if(tok!==qtok){c.remove();return}if(!st)st=ts;const k=Math.min(1,Math.max(0,(ts-st-delay)/1300));
-      const p=path.getPointAtLength(L*k);c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);c.style.opacity=k>0&&k<1?1:0;
-      if(k<1)requestAnimationFrame(f);else c.remove()};requestAnimationFrame(f)};
-  const loop=()=>{if(tok!==qtok)return;d.flows.forEach(([q,col],i)=>shoot(document.getElementById('tq'+q),col,i*450));
-    shoot(document.getElementById('tqc'),d.cflow[1],900);setTimeout(loop,3600)};loop();}
-document.querySelectorAll('#qtog button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#qtog button').forEach(x=>x.classList.toggle('on',x===b));qplay(b.dataset.m)});
-document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s3mode));document.querySelectorAll('#qtog button').forEach(x=>x.classList.toggle('on',x.dataset.m===qmode));
+document.querySelectorAll('#mtog button').forEach(b=>b.onclick=()=>{s5mode=b.dataset.m;
+  document.querySelectorAll('#mtog button').forEach(x=>x.classList.toggle('on',x===b));
+  document.getElementById('misscap').textContent=MISS[s5mode];
+  flows.get(document.getElementById('s5')).play(s5mode)});
+document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s3mode));
+document.querySelectorAll('#mtog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s5mode));
 const h=parseInt(location.hash.slice(1));go(h>=1&&h<=scenes.length?h-1:0);
 </script>
 </body>
