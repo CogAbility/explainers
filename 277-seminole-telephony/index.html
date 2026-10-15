@@ -33,6 +33,9 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .nd.target rect{fill:#e8effd;stroke:var(--dmv);stroke-width:3}
 .ghost{fill:none;stroke:var(--dmv);stroke-width:4;stroke-dasharray:2 9;stroke-linecap:round;opacity:0;transition:opacity .4s}.ghost.show{opacity:.9}
 .bub.blue rect{fill:var(--dmv)}.bub.tag rect{fill:#fff;stroke:var(--mute);stroke-width:1.5}.bub.tag text{fill:var(--mute)}
+.nd.skip rect{fill:#f1f1f1;stroke:#b8b8b8;stroke-dasharray:5 5}.nd.skip text{fill:#9aa3ae!important}
+.nd.xf.hot-bad rect,.nd[data-r=xf].hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-dasharray:none}
+.nd.qpt.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-width:3;stroke-dasharray:6 5}
 .trail.miss{stroke-dasharray:10 8}
 .nd.hot-good rect{fill:#e8f6ec;stroke:var(--green)}
 .nd.check rect{fill:#fff8ec;stroke:#e7b96b}
@@ -98,14 +101,14 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
   <section class="scene" data-flow="before">
     <div class="k">2 · Why it happened</div>
     <h1>A no-topic call was sent to Property Tax.</h1>
-    <p class="line">The caller named no topic, so the call belonged at DMV. The CogBot guessed Property Tax, and the Detect caller’s topic step was skipped, so the guess went through.</p>
+    <p class="line">The caller named no topic, so it belonged at DMV. The transfer request was filled in as Property Tax anyway, and Detect caller’s topic was skipped.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="after" id="s3">
     <div class="k">3 · The fix</div>
     <h1>Now the Detect caller’s topic step runs on every transfer.</h1>
-    <p class="line">No topic named → DMV / Driver License. Topic named → that department.</p>
+    <p class="line">Detect caller’s topic now checks every transfer request. No topic found → DMV.</p>
     <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
     <div class="stage"></div>
   </section>
@@ -163,26 +166,28 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 <script>
 const NS='http://www.w3.org/2000/svg';
 const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
- <path class="track" d="M150 200H325"/><path class="track" d="M475 200H555"/>
- <path class="track" d="M705 200C770 200 770 75 820 75"/><path class="track" d="M705 200H820"/><path class="track" d="M705 200C770 200 770 325 820 325"/>
- <path class="ghost" data-r="ghost" d="M705 200C770 200 770 75 820 75"/>
+ <path class="track" d="M130 200H190"/><path class="track" d="M320 200H380"/><path class="track" d="M540 200H600"/>
+ <path class="track" d="M730 200C775 200 775 75 820 75"/><path class="track" d="M730 200H820"/><path class="track" d="M730 200C775 200 775 325 820 325"/>
+ <path class="ghost" data-r="ghost" d="M730 200C775 200 775 75 820 75"/>
  <path class="trail" data-r="trail" d=""/>
- <g class="nd" data-r="caller"><rect x="40" y="160" width="110" height="80" rx="40"/><text x="95" y="206">Caller</text></g>
- <g class="nd" data-r="cog"><rect x="325" y="160" width="150" height="80" rx="18"/><text x="400" y="206">CogBot</text></g>
- <g class="nd check" data-r="chk"><rect x="555" y="160" width="150" height="80" rx="18"/><text x="630" y="194" style="font-size:15px">Detect</text><text x="630" y="214" style="font-size:15px">caller’s topic</text></g>
+ <g class="nd" data-r="caller"><rect x="20" y="165" width="110" height="70" rx="35"/><text x="75" y="206">Caller</text></g>
+ <g class="nd" data-r="cog"><rect x="190" y="165" width="130" height="70" rx="18"/><text x="255" y="206">CogBot</text></g>
+ <g class="nd" data-r="xf"><rect x="380" y="160" width="160" height="80" rx="18"/><text x="460" y="193" style="font-size:14px;fill:#647184">Transfer request</text><text x="460" y="216" style="font-size:15px">Dept: Property Tax</text></g>
+ <g class="nd check" data-r="chk"><rect x="600" y="160" width="130" height="80" rx="18"/><text x="665" y="194" style="font-size:14px">Detect</text><text x="665" y="214" style="font-size:14px">caller’s topic</text><line data-r="strike" x1="612" y1="200" x2="718" y2="200" stroke="#647184" stroke-width="2.5" opacity="0"/></g>
  <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
  <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
  <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
- <g class="bub" data-r="b1"><rect x="10" y="62" width="190" height="42" rx="21"/><text x="105" y="89">“Speak to someone.”</text></g>
- <g class="bub tag" data-r="b0"><rect x="25" y="112" width="160" height="32" rx="16"/><text x="105" y="133" style="font-size:13px">No topic mentioned</text></g>
- <g class="bub amber" data-r="b2"><rect x="290" y="92" width="220" height="42" rx="21"/><text x="400" y="119">Guessed: Property Tax</text></g>
- <g class="bub" data-r="b3"><rect x="525" y="262" width="210" height="42" rx="21"/><text x="630" y="289" data-r="b3t"></text></g>
- <g class="bub amber" data-r="b4"><rect x="790" y="235" width="235" height="36" rx="18"/><text x="907" y="259" style="font-size:14px">Went here (wrong queue)</text></g>
- <g class="bub blue" data-r="b5"><rect x="735" y="0" width="290" height="36" rx="18"/><text x="880" y="24" style="font-size:14px">✓ Should go here: DMV / Driver License</text></g>
+ <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px">“Speak to someone.”</text></g>
+ <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px">No topic mentioned</text></g>
+ <g class="bub tag" data-r="b2"><rect x="190" y="118" width="130" height="30" rx="15"/><text x="255" y="138" style="font-size:13px">Topic: unknown</text></g>
+ <g class="bub amber" data-r="b6"><rect x="360" y="252" width="200" height="50" rx="16"/><text x="460" y="273" style="font-size:13px">Filled in by the voice AI,</text><text x="460" y="291" style="font-size:13px">not from the caller</text></g>
+ <g class="bub" data-r="b3"><rect x="570" y="252" width="190" height="40" rx="20"/><text x="665" y="278" style="font-size:13px" data-r="b3t"></text></g>
+ <g class="bub amber" data-r="b4"><rect x="835" y="236" width="145" height="30" rx="15"/><text x="907" y="256" style="font-size:13px">Wrong queue</text></g>
+ <g class="bub blue" data-r="b5"><rect x="835" y="8" width="145" height="30" rx="15"/><text x="907" y="28" style="font-size:13px">Correct queue</text></g>
  <circle class="ring" data-r="ring" r="10"/>
- <circle data-r="dot" r="11" cx="150" cy="200" fill="#1f2a37"/>
+ <circle data-r="dot" r="11" cx="130" cy="200" fill="#1f2a37"/>
 </svg>`;
-const SEG={a:"M150 200H325",b:"M475 200H555",pt:"M705 200H820",main:"M705 200C770 200 770 75 820 75"};
+const SEG={a:"M130 200H190",b:"M320 200H380",c:"M540 200H600",pt:"M730 200H820",main:"M730 200C775 200 775 75 820 75"};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function makeFlow(stage){
@@ -195,29 +200,29 @@ function makeFlow(stage){
     (function f(n){if(t!==tok)return no();const p=reduce?1:Math.min(1,(n-s)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,pt=tmp.getPointAtLength(L*e);
       R.dot.setAttribute('cx',pt.x);R.dot.setAttribute('cy',pt.y);
       if(p<1)requestAnimationFrame(f);else ok()})(s)})}
-  function reset(){['b0','b1','b2','b3','b4','b5'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt','cog','chk'].forEach(k=>R[k].classList.remove('hot-bad','hot-good'));R.trail.classList.remove('miss');R.main.classList.remove('target');R.ghost.classList.remove('show');
-    R.dot.setAttribute('cx',150);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
+  function reset(){['b0','b1','b2','b3','b4','b5','b6'].forEach(k=>R[k].classList.remove('show'));['main','pt','dt','cog','chk','xf'].forEach(k=>R[k].classList.remove('hot-bad','hot-good','target','skip'));
+    R.trail.classList.remove('miss');R.ghost.classList.remove('show');R.strike.setAttribute('opacity',0);
+    R.dot.setAttribute('cx',130);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
   function pulse(x,y,c){R.ring.setAttribute('cx',x);R.ring.setAttribute('cy',y);R.ring.style.stroke=c;
     R.ring.animate([{r:10,opacity:.9},{r:60,opacity:0}],{duration:reduce?1:900,easing:'ease-out'})}
   async function run(mode){
     const t=++tok;
     try{for(;;){
       reset();const good=mode==='after';
-      await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(700,t);
-      R.ghost.classList.add('show');R.b5.classList.add('show');R.main.classList.add('target');await wait(1100,t);
-      await move(SEG.a,900,t);
-      R.b2.classList.add('show');await wait(900,t);
-      await move(SEG.b,700,t);
-      if(mode!=='report'){
-        R.b3.classList.remove('amber','green','blue');R.b3.classList.add(good?'blue':'amber');
-        R.b3t.textContent=good?'No topic → DMV':'Skipped → passed through';
-        R.b3.classList.add('show');await wait(1100,t);
-      }
+      await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+      await move(SEG.a,800,t);R.b2.classList.add('show');await wait(900,t);
+      await move(SEG.b,700,t);R.xf.classList.add('hot-bad');R.b6.classList.add('show');await wait(1300,t);
+      await move(SEG.c,700,t);
+      R.b3.classList.remove('amber','blue','tag');
+      if(good){R.b3.classList.add('blue');R.b3t.textContent='No topic found → DMV'}
+      else{R.chk.classList.add('skip');R.strike.setAttribute('opacity',1);R.b3.classList.add('tag');R.b3t.textContent='Skipped (ran only for DMV)'}
+      R.b3.classList.add('show');await wait(1200,t);
+      R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.toggle('show',!good);
       const dest=good?'main':'pt',col=good?'#2563eb':'#b45309';
-      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
+      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.c+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
       await move(SEG[dest],900,t);
-      R[dest].classList.add(good?'hot-good':'hot-bad');pulse(907,good?75:200,col);if(!good)R.b4.classList.add('show');
-      await wait(2400,t);
+      if(good){pulse(907,75,col)}else{R.pt.classList.add('hot-bad');R.b4.classList.add('show')}
+      await wait(2600,t);
     }}catch(e){}
   }
   return {play:run,stop:()=>{tok++}};
