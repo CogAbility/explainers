@@ -74,28 +74,28 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 
   <section class="scene" data-flow="why">
     <div class="k">2 · Why it happened</div>
-    <h1>No safe default was set</h1>
-    <p class="line">The transfer needed a department, but when the caller gave no topic, nothing told CogBot which line to pick. It chose Property Tax — the wrong line for most Seminole callers.</p>
+    <h1>The Router let a wrong guess through</h1>
+    <p class="line">DMV / Driver License was already the default. When a caller gave no topic, CogBot sometimes guessed Property Tax, and the Router only corrected picks of DMV, so the guess went through.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="dmv">
-    <div class="k">3 · How it works now</div>
-    <h1>DMV / Driver License</h1>
-    <p class="line">Caller wants to renew a driver license and change address / talk to an agent.</p>
+    <div class="k">3 · The fix</div>
+    <h1>No topic: Router resets to DMV</h1>
+    <p class="line">Caller just asks for a person. If CogBot picks Property Tax but no Property Tax words were said, the Router sends the call to DMV / Driver License, the default.</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="property">
-    <div class="k">4 · Property Tax</div>
-    <h1>Property Tax</h1>
-    <p class="line">Caller wants to talk about their property tax. Router remembers if they mentioned property tax earlier, even if they later just say "get me a human".</p>
+    <div class="k">4 · The fix</div>
+    <h1>Topic said earlier: Router keeps it</h1>
+    <p class="line">Caller wants to talk about their property tax. If they said "property tax" within the last several turns, the Router sends them to Property Tax, even if CogBot picked DMV when they later just say "get me a human".</p>
     <div class="stage"></div>
   </section>
 
   <section class="scene" data-flow="delinquent">
-    <div class="k">5 · Delinquent Tax</div>
-    <h1>Delinquent Tax</h1>
+    <div class="k">5 · The fix</div>
+    <h1>Back taxes: Delinquent Tax</h1>
     <p class="line">Caller asks about a tax certificate / back taxes. (Illustrative — no real Delinquent Tax transfers in the latest window.)</p>
     <div class="stage"></div>
   </section>
@@ -118,12 +118,12 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
     </div>
     <div class="note" style="transition-delay:.8s;margin-top:28px">
       <b>Before/After Comparison</b>
-      <span style="display:block;margin-top:12px;color:var(--mute)"><strong style="color:var(--mute)">Before:</strong> Original bug 0/271 graded general requests routed correctly (0%); Oct 8-9 pre-fix 374 transfers, 48 to Property Tax, 10+ known misroutes</span>
-      <span style="display:block;margin-top:8px;color:var(--teal)"><strong style="color:var(--teal)">After:</strong> First graded window 81/83 (97.6%); Oct 15 evening 183/188 (97.3%)</span>
+      <span style="display:block;margin-top:12px;color:var(--mute)"><strong style="color:var(--mute)">Before:</strong> Oct 8–9, pre-fix: 374 transfers, 48 to Property Tax (12.8%), at least 10 reported misroutes; no graded accuracy existed.</span>
+      <span style="display:block;margin-top:8px;color:var(--teal)"><strong style="color:var(--teal)">After:</strong> First graded window 81/83 (97.6%); Oct 15 183/188 (97.3%); original bug 0 in 271 graded transfers since the fix.</span>
     </div>
     <div class="note" style="transition-delay:.9s">
       <b>5 misroutes</b>
-      <span>Property-tax questions worded in ways not yet recognized: "real estate taxes", "tax receipt", Spanish request. All went to DMV.</span>
+      <span>5 property-tax callers went to DMV: 2 said their topic in words the Router didn't recognize ("real estate taxes", "tax receipt"), 1 Spanish caller, 1 said only "tax questions", 1 named the topic too early in the call. The phrases and non-English handling were added Oct 16 (be-pfc #286).</span>
     </div>
     <div class="links">
       <a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277" target="_blank" rel="noopener">Ticket #277</a>
@@ -181,9 +181,9 @@ function makeFlow(stage){
       if(mode==='wrong'){
         setBub('b1','"Speak to someone."');setBub('b0','No topic mentioned');
         R.b0.querySelector('rect').setAttribute('width',140);R.b0.classList.add('tag');
-        setBub('b2','CogBot defaults to Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',230);
-        setBub('b3','Router does not check caller words');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',260);
-        setBub('b4','Where these calls went');R.b4.classList.add('tag');R.b4.querySelector('rect').setAttribute('width',190);
+        setBub('b2','CogBot guessed Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',220);
+        setBub('b3','Router only checked DMV picks');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',240);
+        setBub('b4','Should have gone to DMV');R.b4.classList.add('tag');R.b4.querySelector('rect').setAttribute('width',190);
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -196,7 +196,7 @@ function makeFlow(stage){
         R.b0.querySelector('rect').setAttribute('width',100);R.b0.classList.add('tag');
         setBub('b2','Transfer needs a department');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',225);
         setBub('b3','CogBot chose Property Tax');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',210);
-        setBub('b4','Wrong line for most callers');R.b4.classList.add('tag');
+        setBub('b4','Should have gone to DMV');R.b4.classList.add('tag');R.b4.querySelector('rect').setAttribute('width',190);
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -205,11 +205,11 @@ function makeFlow(stage){
         await wait(2600,t);continue;
       }
       if(mode==='dmv'){
-        setBub('b1','"Renew my driver license."');R.b1.querySelector('rect').setAttribute('x',-30);R.b1.querySelector('rect').setAttribute('width',210);setBub('b0','DMV topic');
-        R.b0.querySelector('rect').setAttribute('width',110);R.b0.classList.add('tag');
-        setBub('b2','DMV / Driver License');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',180);
-        setBub('b3','Router checks words → DMV');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
-        setBub('b4','Correct destination');R.b4.classList.add('tag');
+        setBub('b1','"Speak to someone."');setBub('b0','No topic');
+        R.b0.querySelector('rect').setAttribute('width',100);R.b0.classList.add('tag');
+        setBub('b2','CogBot guessed Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',220);
+        setBub('b3','No matching words → DMV');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
+        setBub('b4','Correct: DMV');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -220,8 +220,8 @@ function makeFlow(stage){
       if(mode==='property'){
         setBub('b1','"Talk about property tax."');R.b1.querySelector('rect').setAttribute('x',-30);R.b1.querySelector('rect').setAttribute('width',210);setBub('b0','Property tax mentioned');
         R.b0.querySelector('rect').setAttribute('width',180);R.b0.classList.add('tag');
-        setBub('b2','Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',140);
-        setBub('b3','Router remembers their topic');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
+        setBub('b2','CogBot picked DMV');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',170);
+        setBub('b3',"Finds 'property tax' → Property Tax");R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',270);
         setBub('b4','Correct destination');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
@@ -234,7 +234,7 @@ function makeFlow(stage){
         setBub('b1','"Question about tax certificate."');R.b1.querySelector('rect').setAttribute('x',-55);R.b1.querySelector('rect').setAttribute('width',260);setBub('b0','Back taxes / certificate');
         R.b0.querySelector('rect').setAttribute('width',190);R.b0.classList.add('tag');
         setBub('b2','Delinquent Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',150);
-        setBub('b3','Router checks words → Delinquent');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',260);
+        setBub('b3','Words match Delinquent Tax');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',260);
         setBub('b4','Correct destination');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
