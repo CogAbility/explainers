@@ -181,22 +181,22 @@ function makeFlow(stage){
       if(mode==='wrong'){
         setBub('b1','"Speak to someone."');setBub('b0','No topic mentioned');
         R.b0.querySelector('rect').setAttribute('width',140);R.b0.classList.add('tag');
-        setBub('b2','Default: Property Tax');R.b2.classList.add('tag');
-        setBub('b3','No check on caller words');R.b3.classList.add('tag');
-        setBub('b4','General calls landed here by mistake');R.b4.classList.add('tag');R.b4.querySelector('rect').setAttribute('x',768);R.b4.querySelector('rect').setAttribute('width',280);
+        setBub('b2','CogBot defaults to Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',230);
+        setBub('b3','Router does not check caller words');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',260);
+        setBub('b4','Where these calls went');R.b4.classList.add('tag');R.b4.querySelector('rect').setAttribute('width',190);
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
-        R.dot.setAttribute('fill','#2563eb');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.dmv);R.trail.style.stroke='#2563eb';
-        await move(SEG.dmv,900,t);R.dmv.classList.add('hot');R.b4.classList.add('show');
+        R.dot.setAttribute('fill','#0f766e');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.pt);R.trail.style.stroke='#0f766e';
+        await move(SEG.pt,900,t);R.pt.classList.add('hot');R.b4.classList.add('show');
         await wait(2600,t);continue;
       }
       if(mode==='why'){
         setBub('b1','"Get me a person."');setBub('b0','No topic');
         R.b0.querySelector('rect').setAttribute('width',100);R.b0.classList.add('tag');
-        setBub('b2','Needs a department');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',190);
-        setBub('b3','Picked Property Tax');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',180);
-        setBub('b4','Wrong line');R.b4.classList.add('blue');
+        setBub('b2','Transfer needs a department');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',225);
+        setBub('b3','CogBot chose Property Tax');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',210);
+        setBub('b4','Wrong line for most callers');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -208,8 +208,8 @@ function makeFlow(stage){
         setBub('b1','"Renew my driver license."');R.b1.querySelector('rect').setAttribute('x',-30);R.b1.querySelector('rect').setAttribute('width',210);setBub('b0','DMV topic');
         R.b0.querySelector('rect').setAttribute('width',110);R.b0.classList.add('tag');
         setBub('b2','DMV / Driver License');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',180);
-        setBub('b3','Caller words → DMV');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',180);
-        setBub('b4','DMV');R.b4.classList.add('blue');
+        setBub('b3','Router checks words → DMV');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
+        setBub('b4','Correct destination');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -221,8 +221,8 @@ function makeFlow(stage){
         setBub('b1','"Talk about property tax."');R.b1.querySelector('rect').setAttribute('x',-30);R.b1.querySelector('rect').setAttribute('width',210);setBub('b0','Property tax mentioned');
         R.b0.querySelector('rect').setAttribute('width',180);R.b0.classList.add('tag');
         setBub('b2','Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',140);
-        setBub('b3','Router remembers topic');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',200);
-        setBub('b4','Property Tax');R.b4.classList.add('teal');
+        setBub('b3','Router remembers their topic');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
+        setBub('b4','Correct destination');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
@@ -234,8 +234,8 @@ function makeFlow(stage){
         setBub('b1','"Question about tax certificate."');R.b1.querySelector('rect').setAttribute('x',-55);R.b1.querySelector('rect').setAttribute('width',260);setBub('b0','Back taxes / certificate');
         R.b0.querySelector('rect').setAttribute('width',190);R.b0.classList.add('tag');
         setBub('b2','Delinquent Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',150);
-        setBub('b3','Caller words → Delinquent');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
-        setBub('b4','Delinquent Tax');R.b4.classList.add('purple');
+        setBub('b3','Router checks words → Delinquent');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',260);
+        setBub('b4','Correct destination');R.b4.classList.add('tag');
         await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
         await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
