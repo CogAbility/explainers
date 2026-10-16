@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Misdirected calls, fixed · CogAbility #277</title>
+<title>Seminole routing fix · CogAbility #277</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,25 +26,16 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .stage svg{width:100%;height:auto;display:block;overflow:visible}
 .nd rect{fill:#fff;stroke:var(--line);stroke-width:2;transition:fill .4s,stroke .4s}
 .nd text{font:600 17px Inter,sans-serif;fill:var(--ink);text-anchor:middle}
-.nd.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-dasharray:6 5}
 .nd.qdmv rect{stroke:var(--dmv)}.nd.qpt rect{stroke:var(--pt)}.nd.qdt rect{stroke:var(--dt)}
-.nd.qdmv.hot-good rect{fill:#e8effd;stroke:var(--dmv)}.nd.qpt.hot-good rect{fill:#e6f4f1;stroke:var(--pt)}
-.nd.target rect{fill:#e8effd;stroke:var(--dmv);stroke-width:3}
-.ghost{fill:none;stroke:var(--dmv);stroke-width:4;stroke-dasharray:2 9;stroke-linecap:round;opacity:0;transition:opacity .4s}.ghost.show{opacity:.9}
-.bub.blue rect{fill:var(--dmv)}.bub.tag rect{fill:#fff;stroke:var(--mute);stroke-width:1.5}.bub.tag text{fill:var(--mute)}
-.nd.qpt.hot-bad rect,.nd.qdmv.hot-bad rect{fill:#fff8ec;stroke:var(--amber);stroke-width:3;stroke-dasharray:6 5}
-.trail.miss{stroke-dasharray:10 8}
-.nd.hot-good rect{fill:#e8f6ec;stroke:var(--green)}
-.track{fill:none;stroke:#d8cfc0;stroke-width:3;stroke-dasharray:7 7}
-.trail{fill:none;stroke-width:5;stroke-linecap:round}
+.nd.qdmv.hot rect{fill:#e8effd;stroke:var(--dmv);stroke-width:3}
+.nd.qpt.hot rect{fill:#e6f4f1;stroke:var(--pt);stroke-width:3}
+.nd.qdt.hot rect{fill:#f3eeff;stroke:var(--dt);stroke-width:3}
 .bub{opacity:0;transition:opacity .35s,transform .35s;transform-box:fill-box;transform-origin:center bottom;transform:scale(.8)}
 .bub.show{opacity:1;transform:none}
 .bub rect{fill:var(--ink)}.bub text{fill:#fff;font:600 15px Inter,sans-serif;text-anchor:middle}
-.bub.amber rect{fill:var(--amber)}.bub.green rect{fill:var(--green)}.bub.teal rect{fill:var(--pt)}
-.ring{fill:none;stroke-width:3;opacity:0}
-.toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:14px;box-shadow:0 4px 14px rgba(31,42,55,.06)}
-.toggle button{border:0;background:none;font:600 .92rem Inter,sans-serif;padding:9px 18px;border-radius:999px;cursor:pointer;color:var(--mute)}
-.toggle button.on{background:var(--ink);color:#fff}
+.bub.blue rect{fill:var(--dmv)}.bub.teal rect{fill:var(--pt)}.bub.purple rect{fill:var(--dt)}.bub.tag rect{fill:#fff;stroke:var(--mute);stroke-width:1.5}.bub.tag text{fill:var(--mute)}
+.track{fill:none;stroke:#d8cfc0;stroke-width:3;stroke-dasharray:7 7}
+.trail{fill:none;stroke-width:5;stroke-linecap:round;opacity:.35}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:min(1000px,100%);margin-top:28px}
 @media(max-width:820px){.stats{grid-template-columns:1fr 1fr}}
 .stat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 14px;text-align:center;box-shadow:0 8px 24px rgba(31,42,55,.06);
@@ -53,24 +44,11 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 .stat .v{font:700 clamp(2.2rem,4.6vw,3.4rem)/1 Fraunces,serif}
 .stat .l{color:var(--mute);margin-top:10px;font-size:.9rem}
 .v.t{color:var(--teal)}.v.g{color:var(--green)}.v.a{color:var(--amber)}.v.b{color:var(--dmv)}
-.notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:min(920px,100%);margin-top:22px}
-@media(max-width:720px){.notes{grid-template-columns:1fr}}
-.note{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-align:left;box-shadow:0 6px 18px rgba(31,42,55,.05);
+.note{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;text-align:center;max-width:700px;margin:22px auto 0;box-shadow:0 6px 18px rgba(31,42,55,.05);
   opacity:0;transform:translateY(16px);transition:all .55s cubic-bezier(.2,.7,.2,1)}
 .on .note{opacity:1;transform:none}
-.note b{display:block;font:600 .95rem Inter,sans-serif;margin-bottom:4px}
-.note span{color:var(--mute);font-size:.9rem;line-height:1.45}
-.note.ok{border-color:#9fd8c2}.note.miss{border-color:#e7b96b}
-.fixes{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:min(960px,100%);margin-top:24px}
-@media(max-width:720px){.fixes{grid-template-columns:1fr}}
-.fix{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;text-align:left;box-shadow:0 6px 18px rgba(31,42,55,.05);
-  opacity:0;transform:translateY(16px);transition:all .55s cubic-bezier(.2,.7,.2,1)}
-.on .fix{opacity:1;transform:none}
-.fix .tag{display:inline-block;font:700 .72rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
-.fix b{display:block;font:600 1.05rem Inter,sans-serif;margin-bottom:6px}
-.fix span{color:var(--mute);font-size:.92rem;line-height:1.45}
-.done{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#e6f5ef;color:var(--teal);border:1.5px solid #9fd8c2;border-radius:999px;padding:7px 16px;font-weight:600;font-size:.92rem}
-.done i{width:9px;height:9px;border-radius:50%;background:var(--teal)}
+.note b{display:block;font:600 1.05rem Inter,sans-serif;margin-bottom:8px}
+.note span{color:var(--mute);font-size:.92rem;line-height:1.45}
 .links{margin-top:18px;display:flex;gap:14px;font-size:.88rem;flex-wrap:wrap;justify-content:center}
 .links a{color:var(--teal);font-weight:600;text-decoration:none;border-bottom:1.5px solid #bfe3dc}
 .bar{position:fixed;left:0;right:0;bottom:26px;display:flex;align-items:center;justify-content:center;gap:22px;z-index:5}
@@ -87,68 +65,63 @@ p.line{color:var(--mute);font-size:clamp(1rem,1.6vw,1.2rem);text-align:center;ma
 <div class="brand">CogAbility · Issue #277</div>
 <div class="deck" id="deck">
 
-  <section class="scene" data-flow="report">
-    <div class="k">1 · The report</div>
-    <h1>What Seminole saw</h1>
-    <p class="line">A caller with no topic reached Property Tax instead of DMV / Driver License.</p>
+  <section class="scene" data-flow="wrong">
+    <div class="k">1 · What was wrong</div>
+    <h1>Callers with no topic went to the wrong queue</h1>
+    <p class="line">A caller who just asked for a person ("representative", "customer service") landed at Property Tax instead of DMV / Driver License.</p>
     <div class="stage"></div>
   </section>
 
-  <section class="scene" data-flow="before">
+  <section class="scene" data-flow="why">
     <div class="k">2 · Why it happened</div>
-    <h1>Why it happened</h1>
-    <p class="line">The caller named no topic, but CogBot filled in Property Tax. The Router didn't check it.</p>
+    <h1>No safe default was set</h1>
+    <p class="line">The transfer needed a department, but when the caller gave no topic, nothing told CogBot which line to pick. It chose Property Tax — the wrong line for most Seminole callers.</p>
     <div class="stage"></div>
   </section>
 
-  <section class="scene" data-flow="after" id="s3">
-    <div class="k">3 · The first fix</div>
-    <h1>The first fix</h1>
-    <p class="line">The Router now checks the caller's words on every request.</p>
-    <div class="toggle" id="tog"><button data-m="before">Before</button><button data-m="after" class="on">After</button></div>
+  <section class="scene" data-flow="dmv">
+    <div class="k">3 · How it works now</div>
+    <h1>DMV / Driver License</h1>
+    <p class="line">Caller wants to renew a driver license and change address / talk to an agent.</p>
     <div class="stage"></div>
   </section>
 
-  <section class="scene" id="s4">
-    <div class="k">4 · Live results</div>
-    <h1>Real calls after the first fix</h1>
-    <p class="line">83 transfers · Oct 14, 4:12 PM – Oct 15, 10:00 AM CT</p>
+  <section class="scene" data-flow="property">
+    <div class="k">4 · Property Tax</div>
+    <h1>Property Tax</h1>
+    <p class="line">Caller wants to talk about their property tax. Router remembers if they mentioned property tax earlier, even if they later just say "get me a human".</p>
+    <div class="stage"></div>
+  </section>
+
+  <section class="scene" data-flow="delinquent">
+    <div class="k">5 · Delinquent Tax</div>
+    <h1>Delinquent Tax</h1>
+    <p class="line">Caller asks about a tax certificate / back taxes. (Illustrative — no real Delinquent Tax transfers in the latest window.)</p>
+    <div class="stage"></div>
+  </section>
+
+  <section class="scene" id="stats">
+    <div class="k">6 · Latest results</div>
+    <h1>Real callers, Oct 15, 10:05 AM – ~10 PM CT</h1>
+    <p class="line">Last transfer 4:48 PM CT</p>
     <div class="stats">
-      <div class="stat"><div class="v t" data-to="83">83</div><div class="l">transfers checked</div></div>
-      <div class="stat" style="transition-delay:.1s"><div class="v g" data-to="81">81</div><div class="l">routed to the right queue</div></div>
-      <div class="stat" style="transition-delay:.2s"><div class="v a" data-to="2">2</div><div class="l">should have reached Property Tax</div></div>
-      <div class="stat" style="transition-delay:.3s"><div class="v g" data-to="0">0</div><div class="l">times the original bug returned</div></div>
+      <div class="stat"><div class="v t" data-to="315">315</div><div class="l">DeeMV calls</div></div>
+      <div class="stat" style="transition-delay:.1s"><div class="v b" data-to="188">188</div><div class="l">transferred to staff</div></div>
+      <div class="stat" style="transition-delay:.2s"><div class="v g" data-to="183">183</div><div class="l">went to the right queue<br>(97.3%)</div></div>
+      <div class="stat" style="transition-delay:.3s"><div class="v g" data-to="0">0</div><div class="l">original bug<br>(no-topic → Property Tax)</div></div>
     </div>
-    <div class="notes">
-      <div class="note ok" style="transition-delay:.15s"><b>Router corrected a live call</b><span>At 9:58 AM CT a caller asked what they owed on property tax. CogBot asked for DMV; the Router switched it to Property Tax.</span></div>
-      <div class="note miss" style="transition-delay:.25s"><b>Two misses both went to DMV</b><span>One topic fell outside the Router's 3-turn window. One used "occupational license," which had no Property Tax phrase yet.</span></div>
+    <div class="stats" style="margin-top:18px">
+      <div class="stat" style="transition-delay:.4s"><div class="v b" data-to="182">182</div><div class="l">DMV / Driver License</div></div>
+      <div class="stat" style="transition-delay:.5s"><div class="v t" data-to="6">6</div><div class="l">Property Tax</div></div>
+      <div class="stat" style="transition-delay:.6s"><div class="v" style="color:var(--dt)" data-to="0">0</div><div class="l">Delinquent Tax</div></div>
+      <div class="stat" style="transition-delay:.7s"><div class="v a" data-to="5">5</div><div class="l">misroutes<br>(went to DMV)</div></div>
     </div>
-  </section>
-
-  <section class="scene" data-flow="miss" id="s5">
-    <div class="k">5 · Two misses</div>
-    <h1>What still went wrong</h1>
-    <p class="line" id="misscap">Topic named early, then short turns — Router only saw the last 3.</p>
-    <div class="toggle" id="mtog"><button data-m="lookback" class="on">Topic fell out</button><button data-m="phrase">Missing phrase</button></div>
-    <div class="stage"></div>
-  </section>
-
-  <section class="scene" id="s6">
-    <div class="k">6 · What's live now</div>
-    <h1>The follow-up fix</h1>
-    <p class="line">Shipped in be-pfc #283 · lookback, phrases, prompt, and a routing metric.</p>
-    <div class="fixes">
-      <div class="fix" style="transition-delay:.05s"><div class="tag">Lookback</div><b>8 caller turns</b><span>Router now reads TRANSFER_TOPIC_LOOKBACK = 8, so an earlier "Property tax" still counts after short turns.</span></div>
-      <div class="fix" style="transition-delay:.12s"><div class="tag">Phrases</div><b>Business tax words added</b><span>Property Tax now matches occupational license, business license, business tax receipt, new business, and business tax.</span></div>
-      <div class="fix" style="transition-delay:.19s"><div class="tag">Prompt</div><b>Stronger CogBot note</b><span>If the call already covered a department's topics, CogBot should pass that department — not the DMV default.</span></div>
-      <div class="fix" style="transition-delay:.26s"><div class="tag">Metric</div><b>CogBot vs final queue</b><span>Every transfer logs CogBot's pick, the phrase match, the final queue, and whether the Router corrected it.</span></div>
+    <div class="note" style="transition-delay:.8s">
+      <b>5 misroutes</b>
+      <span>Property-tax questions worded in ways not yet recognized: "real estate taxes", "tax receipt", Spanish request. All went to DMV.</span>
     </div>
-    <div class="done"><i></i>Deployed · Seminole phrases applied · Oct 15</div>
     <div class="links">
-      <a href="https://github.com/CogAbility/be-pfc/pull/283" target="_blank" rel="noopener">PR #283</a>
-      <a href="https://github.com/CogAbility/be-pfc/pull/281" target="_blank" rel="noopener">PR #281</a>
       <a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277" target="_blank" rel="noopener">Ticket #277</a>
-      <a href="https://github.com/CogAbility/SW-Engineering-Kanban-Board/issues/277#issuecomment-6195306241" target="_blank" rel="noopener">Real-call results</a>
     </div>
   </section>
 </div>
@@ -164,26 +137,21 @@ const NS='http://www.w3.org/2000/svg';
 const TPL=`<svg viewBox="0 0 1000 400" aria-label="Call flow animation">
  <path class="track" d="M130 200H210"/><path class="track" d="M350 200H450"/>
  <path class="track" d="M600 200C710 200 710 75 820 75"/><path class="track" d="M600 200H820"/><path class="track" d="M600 200C710 200 710 325 820 325"/>
- <path class="ghost" data-r="ghost" d="M600 200C710 200 710 75 820 75"/>
  <path class="trail" data-r="trail" d=""/>
  <g class="nd" data-r="caller"><rect x="20" y="165" width="110" height="70" rx="35"/><text x="75" y="206">Caller</text></g>
  <g class="nd" data-r="cog"><rect x="210" y="165" width="140" height="70" rx="18"/><text x="280" y="206">CogBot</text></g>
  <g class="nd" data-r="rt"><rect x="450" y="165" width="150" height="70" rx="18"/><text x="525" y="206">Router</text></g>
- <g class="nd qdmv" data-r="main"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
+ <g class="nd qdmv" data-r="dmv"><rect x="820" y="45" width="175" height="60" rx="16"/><text x="907" y="81" style="font-size:15px">DMV / Driver License</text></g>
  <g class="nd qpt" data-r="pt"><rect x="820" y="170" width="175" height="60" rx="16"/><text x="907" y="206" style="font-size:15px">Property Tax</text></g>
  <g class="nd qdt" data-r="dt"><rect x="820" y="295" width="175" height="60" rx="16"/><text x="907" y="331" style="font-size:15px">Delinquent Tax</text></g>
- <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px" data-r="b1t">"Speak to someone."</text></g>
- <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px" data-r="b0t">No topic mentioned</text></g>
- <g class="bub tag" data-r="b2"><rect x="215" y="250" width="130" height="30" rx="15"/><text x="280" y="270" style="font-size:13px" data-r="b2t">Topic: unknown</text></g>
- <g class="bub amber" data-r="b6"><rect x="270" y="132" width="260" height="46" rx="16"/><text x="400" y="151" style="font-size:13px" data-r="b6t">CogBot filled in: Property Tax</text><text x="400" y="169" style="font-size:11px" data-r="b6u">(caller named no topic)</text></g>
- <g class="bub" data-r="b3"><rect x="420" y="250" width="210" height="50" rx="16"/><text x="525" y="271" style="font-size:13px" data-r="b3t"></text><text x="525" y="289" style="font-size:12px" data-r="b3u"></text></g>
- <g class="bub amber" data-r="b4"><rect x="835" y="112" width="145" height="30" rx="15"/><text x="907" y="132" style="font-size:13px" data-r="b4t">Wrong queue</text></g>
- <g class="bub blue" data-r="b5"><rect x="835" y="8" width="145" height="30" rx="15"/><text x="907" y="28" style="font-size:13px">Correct queue</text></g>
- <g class="bub teal" data-r="b7"><rect x="835" y="236" width="145" height="30" rx="15"/><text x="907" y="256" style="font-size:13px">Should be here</text></g>
- <circle class="ring" data-r="ring" r="10"/>
+ <g class="bub" data-r="b1"><rect x="-10" y="70" width="170" height="40" rx="20"/><text x="75" y="96" style="font-size:14px" data-r="b1t"></text></g>
+ <g class="bub tag" data-r="b0"><rect x="5" y="118" width="140" height="30" rx="15"/><text x="75" y="138" style="font-size:12px" data-r="b0t"></text></g>
+ <g class="bub tag" data-r="b2"><rect x="215" y="250" width="170" height="30" rx="15"/><text x="300" y="270" style="font-size:13px" data-r="b2t"></text></g>
+ <g class="bub tag" data-r="b3"><rect x="420" y="250" width="210" height="40" rx="16"/><text x="525" y="274" style="font-size:13px" data-r="b3t"></text></g>
+ <g class="bub" data-r="b4"><rect x="835" y="8" width="145" height="30" rx="15"/><text x="907" y="28" style="font-size:13px" data-r="b4t"></text></g>
  <circle data-r="dot" r="11" cx="130" cy="200" fill="#1f2a37"/>
 </svg>`;
-const SEG={a:"M130 200H210",b:"M350 200H450",pt:"M600 200H820",main:"M600 200C710 200 710 75 820 75"};
+const SEG={a:"M130 200H210",b:"M350 200H450",dmv:"M600 200C710 200 710 75 820 75",pt:"M600 200H820",dt:"M600 200C710 200 710 325 820 325"};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function makeFlow(stage){
@@ -196,62 +164,80 @@ function makeFlow(stage){
     (function f(n){if(t!==tok)return no();const p=reduce?1:Math.min(1,(n-s)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,pt=tmp.getPointAtLength(L*e);
       R.dot.setAttribute('cx',pt.x);R.dot.setAttribute('cy',pt.y);
       if(p<1)requestAnimationFrame(f);else ok()})(s)})}
-  function reset(){['b0','b1','b2','b3','b4','b5','b6','b7'].forEach(k=>R[k].classList.remove('show'));
-    ['main','pt','dt'].forEach(k=>R[k].classList.remove('hot-bad','target','hot-good'));
-    R.trail.classList.remove('miss');R.ghost.classList.remove('show');
-    R.dot.setAttribute('cx',130);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','');R.ring.style.opacity=0}
-  function pulse(x,y,c){R.ring.setAttribute('cx',x);R.ring.setAttribute('cy',y);R.ring.style.stroke=c;
-    R.ring.animate([{r:10,opacity:.9},{r:60,opacity:0}],{duration:reduce?1:900,easing:'ease-out'})}
-  function setBub(id,t1,t2){if(R[id+'t'])R[id+'t'].textContent=t1;if(R[id+'u'])R[id+'u'].textContent=t2||''}
+  function reset(){['b0','b1','b2','b3','b4'].forEach(k=>R[k]?.classList.remove('show'));
+    ['dmv','pt','dt'].forEach(k=>R[k].classList.remove('hot'));
+    ['b0','b1','b2','b3','b4'].forEach(k=>{R[k]?.classList.remove('blue','teal','purple','tag')});
+    R.dot.setAttribute('cx',130);R.dot.setAttribute('cy',200);R.dot.setAttribute('fill','#1f2a37');R.trail.setAttribute('d','')}
+  function setBub(id,txt){if(R[id+'t'])R[id+'t'].textContent=txt}
   async function run(mode){
     const t=++tok;
     try{for(;;){
       reset();
-      if(mode==='lookback'||mode==='phrase'){
-        const look=mode==='lookback';
-        setBub('b1',look?'"Speak to someone."':'"Someone who knows the law?"');
-        setBub('b0',look?'Said "Property tax" earlier':'Asked about a new business');
-        R.b0.querySelector('rect').setAttribute('width',look?168:170);
-        setBub('b2',look?'Asked for DMV':'Asked for DMV');
-        setBub('b6',look?'Topic outside 3-turn window':'No matching Property Tax phrase',look?'earlier words no longer visible':'occupational license / new business');
-        R.b6.querySelector('rect').setAttribute('width',280);
-        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(1000,t);
+      if(mode==='wrong'){
+        setBub('b1','"Speak to someone."');setBub('b0','No topic mentioned');
+        R.b0.querySelector('rect').setAttribute('width',140);R.b0.classList.add('tag');
+        setBub('b2','Default: Property Tax');R.b2.classList.add('tag');
+        setBub('b3','No check on caller words');R.b3.classList.add('tag');
+        setBub('b4','Wrong queue');R.b4.classList.add('blue');
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
         await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
-        await move(SEG.b,800,t);R.b6.classList.add('show');await wait(1100,t);
-        R.b3.classList.remove('amber','blue','tag','teal');R.b3.classList.add('amber');
-        R.b3t.textContent=look?'Only last 3 turns checked':'Phrase list had no match';
-        R.b3u.textContent='→ left CogBot\'s DMV pick';
-        R.b3.classList.add('show');await wait(1400,t);
-        R.pt.classList.add('target');R.b7.classList.add('show');R.ghost.classList.add('show');
-        R.dot.setAttribute('fill','#b45309');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.main);
-        R.trail.style.stroke='#b45309';R.trail.style.opacity=.6;R.trail.classList.add('miss');
-        await move(SEG.main,900,t);
-        R.main.classList.add('hot-bad');R.b4.classList.add('show');
-        await wait(2600,t);
-        continue;
+        await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
+        R.dot.setAttribute('fill','#0f766e');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.pt);R.trail.style.stroke='#0f766e';
+        await move(SEG.pt,900,t);R.pt.classList.add('hot');R.b4.classList.add('show');
+        await wait(2600,t);continue;
       }
-      const good=mode==='after',rep=mode==='report';
-      setBub('b1','"Speak to someone."');setBub('b0','No topic mentioned');
-      R.b0.querySelector('rect').setAttribute('width',140);
-      setBub('b2','Topic: unknown');
-      setBub('b6','CogBot filled in: Property Tax','(caller named no topic)');
-      R.b6.querySelector('rect').setAttribute('width',260);
-      await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
-      await move(SEG.a,800,t);
-      if(!rep){R.b2.classList.add('show');await wait(900,t)}
-      await move(SEG.b,800,t);
-      if(!rep){R.b6.classList.add('show');await wait(1200,t);
-        R.b3.classList.remove('amber','blue','tag','teal');
-        if(good){R.b3.classList.add('blue');R.b3t.textContent='Caller named no topic';R.b3u.textContent='→ sends to DMV (default)'}
-        else{R.b3.classList.add('amber');R.b3t.textContent='Checked caller\'s words only';R.b3u.textContent='for DMV requests → passed it on'}
-        R.b3.classList.add('show');await wait(1500,t)}
-      else await wait(400,t);
-      R.main.classList.add('target');R.b5.classList.add('show');R.ghost.classList.toggle('show',!good);
-      const dest=good?'main':'pt',col=good?'#2563eb':'#b45309';
-      R.dot.setAttribute('fill',col);R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG[dest]);R.trail.style.stroke=col;R.trail.style.opacity=good?.35:.6;if(!good)R.trail.classList.add('miss');
-      await move(SEG[dest],900,t);
-      if(good){pulse(907,75,col)}else{R.pt.classList.add('hot-bad');R.b4.classList.add('show');setBub('b4','Wrong queue')}
-      await wait(2600,t);
+      if(mode==='why'){
+        setBub('b1','"Get me a person."');setBub('b0','No topic');
+        R.b0.querySelector('rect').setAttribute('width',100);R.b0.classList.add('tag');
+        setBub('b2','Needs a department');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',190);
+        setBub('b3','Picked Property Tax');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',180);
+        setBub('b4','Wrong line');R.b4.classList.add('blue');
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+        await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
+        await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
+        R.dot.setAttribute('fill','#0f766e');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.pt);R.trail.style.stroke='#0f766e';
+        await move(SEG.pt,900,t);R.pt.classList.add('hot');R.b4.classList.add('show');
+        await wait(2600,t);continue;
+      }
+      if(mode==='dmv'){
+        setBub('b1','"Renew my driver license."');setBub('b0','DMV topic');
+        R.b0.querySelector('rect').setAttribute('width',110);R.b0.classList.add('tag');
+        setBub('b2','DMV / Driver License');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',180);
+        setBub('b3','Caller words → DMV');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',180);
+        setBub('b4','DMV');R.b4.classList.add('blue');
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+        await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
+        await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
+        R.dot.setAttribute('fill','#2563eb');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.dmv);R.trail.style.stroke='#2563eb';
+        await move(SEG.dmv,900,t);R.dmv.classList.add('hot');R.b4.classList.add('show');
+        await wait(2600,t);continue;
+      }
+      if(mode==='property'){
+        setBub('b1','"Talk about property tax."');setBub('b0','Property tax mentioned');
+        R.b0.querySelector('rect').setAttribute('width',180);R.b0.classList.add('tag');
+        setBub('b2','Property Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',140);
+        setBub('b3','Router remembers topic');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',200);
+        setBub('b4','Property Tax');R.b4.classList.add('teal');
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+        await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
+        await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
+        R.dot.setAttribute('fill','#0f766e');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.pt);R.trail.style.stroke='#0f766e';
+        await move(SEG.pt,900,t);R.pt.classList.add('hot');R.b4.classList.add('show');
+        await wait(2600,t);continue;
+      }
+      if(mode==='delinquent'){
+        setBub('b1','"Question about tax certificate."');setBub('b0','Back taxes / certificate');
+        R.b0.querySelector('rect').setAttribute('width',190);R.b0.classList.add('tag');
+        setBub('b2','Delinquent Tax');R.b2.classList.add('tag');R.b2.querySelector('rect').setAttribute('width',150);
+        setBub('b3','Caller words → Delinquent');R.b3.classList.add('tag');R.b3.querySelector('rect').setAttribute('width',220);
+        setBub('b4','Delinquent Tax');R.b4.classList.add('purple');
+        await wait(400,t);R.b1.classList.add('show');R.b0.classList.add('show');await wait(900,t);
+        await move(SEG.a,800,t);R.b2.classList.add('show');await wait(700,t);
+        await move(SEG.b,800,t);R.b3.classList.add('show');await wait(1100,t);
+        R.dot.setAttribute('fill','#7c3aed');R.trail.setAttribute('d',SEG.a+' '+SEG.b+' '+SEG.dt);R.trail.style.stroke='#7c3aed';
+        await move(SEG.dt,900,t);R.dt.classList.add('hot');R.b4.classList.add('show');
+        await wait(2600,t);continue;
+      }
     }}catch(e){}
   }
   return {play:run,stop:()=>{tok++}};
@@ -261,9 +247,7 @@ const scenes=[...document.querySelectorAll('.scene')],flows=new Map();
 scenes.forEach(s=>{if(s.dataset.flow)flows.set(s,makeFlow(s.querySelector('.stage')))});
 const dotsEl=document.getElementById('dots');
 scenes.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Scene '+(i+1));b.onclick=()=>go(i);dotsEl.appendChild(b)});
-const QM=new URLSearchParams(location.search).get('m');let cur=-1,s3mode=QM==='before'?'before':'after',s5mode='lookback';
-const MISS={lookback:'Topic named early, then short turns — Router only saw the last 3.',
-  phrase:'Caller asked about a new-business license — no Property Tax phrase matched.'};
+let cur=-1;
 function go(i){
   i=Math.max(0,Math.min(scenes.length-1,i));if(i===cur)return;
   flows.forEach(f=>f.stop());cur=i;
@@ -273,9 +257,8 @@ function go(i){
   const nx=document.getElementById('next');nx.disabled=i===scenes.length-1;
   history.replaceState(null,'','#'+(i+1));
   const s=scenes[i];
-  if(s.id==='s5'){document.getElementById('misscap').textContent=MISS[s5mode];flows.get(s).play(s5mode)}
-  else if(flows.has(s))flows.get(s).play(s.id==='s3'?s3mode:s.dataset.flow);
-  if(s.id==='s4')s.querySelectorAll('[data-to]').forEach(v=>{const to=+v.dataset.to;if(reduce){v.textContent=to;return}
+  if(flows.has(s))flows.get(s).play(s.dataset.flow);
+  if(s.id==='stats')s.querySelectorAll('[data-to]').forEach(v=>{const to=+v.dataset.to;if(reduce){v.textContent=to;return}
     const st=performance.now();(function f(n){const p=Math.min(1,(n-st)/1500);v.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1&&cur===i)requestAnimationFrame(f);else v.textContent=to})(st)});
 }
 document.getElementById('next').onclick=()=>go(cur+1);
@@ -283,14 +266,6 @@ document.getElementById('prev').onclick=()=>go(cur-1);
 addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
 let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
 addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));tx=null},{passive:true});
-document.querySelectorAll('#tog button').forEach(b=>b.onclick=()=>{s3mode=b.dataset.m;
-  document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x===b));flows.get(document.getElementById('s3')).play(s3mode)});
-document.querySelectorAll('#mtog button').forEach(b=>b.onclick=()=>{s5mode=b.dataset.m;
-  document.querySelectorAll('#mtog button').forEach(x=>x.classList.toggle('on',x===b));
-  document.getElementById('misscap').textContent=MISS[s5mode];
-  flows.get(document.getElementById('s5')).play(s5mode)});
-document.querySelectorAll('#tog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s3mode));
-document.querySelectorAll('#mtog button').forEach(x=>x.classList.toggle('on',x.dataset.m===s5mode));
 const h=parseInt(location.hash.slice(1));go(h>=1&&h<=scenes.length?h-1:0);
 </script>
 </body>
